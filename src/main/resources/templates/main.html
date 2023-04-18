@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Misto</title>
+</head>
+<body>
+<header>
+    <img src="logos/misto.svg" alt="Misto"/>
+    <div class="header-links">
+        <a href="#">Головна</a>
+        <a href="#">Про проект</a>
+        <a href="#">Усі квести</a>
+        <div class="list">
+            <a class="header-list">Харків</a>
+            <div class="list-wrapper">
+                <a href="#">Київ</a>
+                <a href="#">Ужгород</a>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="quest-container" th:each="quest : ${quests}" th:object="${quest}">
+    <div class="quest">
+        <div class="quest-card">
+            <h2 class="quest-name" th:text="*{name}">Назва квесту 1</h2>
+            <p class="quest-description" th:text="*{description}">Опис квесту</p>
+            <div class=quest-card-links>
+                <a class="quest-start" href="#">Розпочати</a>
+                <a class="more-info" href="#">Детальніше&nbsp;
+                    <img src="images/arrow.svg" alt="Misto"/>
+                </a>
+            </div>
+        </div>
+        <div class="quest_characteristics">
+            <div class="quest_characteristic">
+                <img src="logos/category.svg" alt="Misto"/>
+                <div class="quest-characteristic-info">
+                    <p class="info-title">Тип</p>
+                    <p class="info-value" th:text="*{questType}"></p>
+                </div>
+            </div>
+            <div class="quest_characteristic">
+                <img src="logos/puzzle.svg" alt="Misto"/>
+                <div class="quest-characteristic-info">
+                    <p class="info-title">Складність</p>
+                    <p class="info-value" th:text="*{difficulty}"></p>
+                </div>
+            </div>
+            <div class="quest_characteristic">
+                <img src="logos/questions.svg" alt="Misto"/>
+                <div class="quest-characteristic-info">
+                    <p class="info-title">Кількість завдань</p>
+                    <p class="info-value" th:text="*{numOfSteps}"></p>
+                </div>
+            </div>
+            <div class="quest_characteristic">
+                <img src="logos/distance.svg" alt="Misto"/>
+                <div class="quest-characteristic-info">
+                    <p class="info-title">Відстань</p>
+                    <p class="info-value" th:text="|*{distance} км|"></p>
+                </div>
+            </div>
+            <div class="quest_characteristic">
+                <img src="logos/timer.svg" alt="Misto"/>
+                <div class="quest-characteristic-info">
+                    <p class="info-title">Тривалість</p>
+                    <p class="info-value" th:text="|*{duration} хв|"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../static/js/script.js"></script>
+</html>
