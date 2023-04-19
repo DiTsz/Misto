@@ -26,8 +26,7 @@ public class MainController {
         quest1.setDescription("Quest description");
         quest1.setQuestType(QuestType.GASTRO);
         quest1.setCity(new City());
-        quest1.setDifficulty(3);
-        quest1.setRating(5);
+        quest1.setDifficulty(Difficulty.MEDIUM);
         quest1.setTypeReward(TypeReward.PROMOCODE);
         quest1.setReward("qeqf34645yeg");
         quest1.setNumOfSteps(12);
