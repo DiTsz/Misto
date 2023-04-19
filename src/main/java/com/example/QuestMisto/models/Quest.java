@@ -34,41 +34,45 @@ public class Quest {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "difficulty",nullable = false)
+    @Column(name = "difficulty", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private Difficulty difficulty;
 
-    @Column (name = "type_reward",nullable = false)
+    @Column(name = "type_reward", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private TypeReward typeReward;
 
-    @Column (name = "quest_type",nullable = false)
+    @Column(name = "quest_type", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private QuestType questType;
 
-    @Column(name = "reward", columnDefinition = "VARCHAR(45)",nullable = false)
+    @Column(name = "reward", columnDefinition = "VARCHAR(45)", nullable = false)
     private String reward;
 
-    @Column(name = "picture_url", nullable = false,columnDefinition = "TEXT")
+    @Column(name = "picture_url", nullable = false, columnDefinition = "TEXT")
     private String picture_url;
 
-    @Column(name = "num_of_steps",nullable = false)
+    @Column(name = "num_of_steps", nullable = false)
     private Integer numOfSteps;
 
-    @Column (name = "distance",nullable = false)
+    @Column(name = "distance", nullable = false)
     private Float distance;
 
-    @Column (name = "min_duration", nullable = false)
+    @Column(name = "min_duration", nullable = false)
     private Integer minDuration;
 
-    @Column (name = "max_duration", nullable = false)
+    @Column(name = "max_duration", nullable = false)
     private Integer maxDuration;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "city_id",nullable = false)
+    @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "quest", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
 
+    public void setDuration(int minDuration, int maxDuration) {
+        this.minDuration = minDuration;
+        this.maxDuration = maxDuration;
+    }
 }
