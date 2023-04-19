@@ -1,5 +1,6 @@
-package com.example.QuestMisto.Model;
+package com.example.QuestMisto.models;
 
+import com.example.QuestMisto.models.enums.CityName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
