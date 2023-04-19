@@ -1,8 +1,14 @@
 package com.example.QuestMisto;
 
-import com.example.QuestMisto.Model.*;
-import com.example.QuestMisto.Service.CityService;
-import com.example.QuestMisto.Service.QuestService;
+import com.example.QuestMisto.models.enums.Difficulty;
+import com.example.QuestMisto.services.CityService;
+import com.example.QuestMisto.services.QuestService;
+import com.example.QuestMisto.models.City;
+import com.example.QuestMisto.models.Quest;
+import com.example.QuestMisto.models.enums.CityName;
+import com.example.QuestMisto.models.enums.QuestType;
+import com.example.QuestMisto.models.enums.TypeReward;
+import lombok.extern.log4j.Log4j2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -12,10 +18,10 @@ import java.util.UUID;
 
 
 @Component
+@Log4j2
 public class StartUpData implements CommandLineRunner {
     private final CityService cityService;
     private final QuestService questService;
-    private static final Logger logger = LoggerFactory.getLogger(StartUpData.class);
 
     public StartUpData(CityService cityService, QuestService questService) {
         this.cityService = cityService;
@@ -24,8 +30,8 @@ public class StartUpData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //exampleCities();
-        //exampleQuests();
+        exampleCities();
+        exampleQuests();
     }
 
     private void exampleCities() {
@@ -53,20 +59,20 @@ public class StartUpData implements CommandLineRunner {
     private void exampleQuests() {
         Quest quest1 = new Quest();
         Quest quest2 = new Quest();
-        final City kharkiv = cityService.findByCityName(CityName.KHARKIV);
-        final City kyiv = cityService.findByCityName(CityName.KYIV);
+        final City kharkiv = cityService.getByName(CityName.KHARKIV.name());
+        final City kyiv = cityService.getByName(CityName.KYIV.name());
         quest1.setId(UUID.randomUUID());
         quest1.setName("Cymska quest");
         quest1.setDescription("Quest description");
         quest1.setQuestType(QuestType.GASTRO);
         quest1.setCity(kharkiv);
-        quest1.setDifficulty(3);
-        quest1.setRating(5);
+        quest1.setDifficulty(Difficulty.MEDIUM);
         quest1.setTypeReward(TypeReward.PROMOCODE);
         quest1.setReward("qeqf34645yeg");
         quest1.setNumOfSteps(12);
         quest1.setDistance(1200f);
-        quest1.setDuration("90-120");
+        quest1.setMinDuration(90);
+        quest1.setMaxDuration(120);
         quest1.setPicture_url("https://st4.depositphotos.com/4105125/22151/i/450/" +
                 "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg");
 
@@ -75,13 +81,13 @@ public class StartUpData implements CommandLineRunner {
         quest2.setDescription("Quest description");
         quest2.setQuestType(QuestType.EDUCATION);
         quest2.setCity(kyiv);
-        quest2.setDifficulty(2);
-        quest2.setRating(4);
+        quest2.setDifficulty(Difficulty.EASY);
         quest2.setTypeReward(TypeReward.PROMOCODE);
         quest2.setReward("qeqf34645yeg");
         quest2.setNumOfSteps(12);
         quest2.setDistance(1200f);
-        quest2.setDuration("90-120");
+        quest2.setMinDuration(90);
+        quest2.setMaxDuration(120);
         quest2.setPicture_url("https://st2.depositphotos.com/1000128/7504/i/450/depositphotos_75041187" +
                 "-stock-photo-evening-aerial-scenery-of-kyiv.jpg");
         questService.save(quest1);

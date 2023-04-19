@@ -1,8 +1,7 @@
-package com.example.QuestMisto.Repository;
+package com.example.QuestMisto.repositories;
 
-import com.example.QuestMisto.Model.Quest;
+import com.example.QuestMisto.models.Quest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public interface QuestRepository extends JpaRepository<Quest, UUID> {
     @Override
     List<Quest> findAll();
     Optional<Quest> findById(UUID Id);
-    Quest findQuestByName(String name);
+    Quest findByName(String name);
 
 
 }

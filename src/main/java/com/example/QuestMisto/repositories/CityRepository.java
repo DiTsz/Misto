@@ -1,7 +1,7 @@
-package com.example.QuestMisto.Repository;
+package com.example.QuestMisto.repositories;
 
-import com.example.QuestMisto.Model.City;
-import com.example.QuestMisto.Model.CityName;
+import com.example.QuestMisto.models.City;
+import com.example.QuestMisto.models.enums.CityName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

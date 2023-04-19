@@ -1,4 +1,4 @@
-package com.example.QuestMisto.Model;
+package com.example.QuestMisto.models.enums;
 
 public enum CityName {
     KYIV,
@@ -22,5 +22,5 @@ public enum CityName {
     KROPYVNITSKIY,
     SYMUI,
     UZHGOROD,
-    KHERSON;
+    KHERSON
 }

@@ -1,5 +1,8 @@
-package com.example.QuestMisto.Model;
+package com.example.QuestMisto.models;
 
+import com.example.QuestMisto.models.enums.Difficulty;
+import com.example.QuestMisto.models.enums.QuestType;
+import com.example.QuestMisto.models.enums.TypeReward;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +10,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -30,7 +35,8 @@ public class Quest {
     private String description;
 
     @Column(name = "difficulty",nullable = false)
-    private Integer difficulty;
+    @Enumerated(EnumType.ORDINAL)
+    private Difficulty difficulty;
 
     @Column (name = "type_reward",nullable = false)
     @Enumerated(EnumType.ORDINAL)
@@ -46,54 +52,23 @@ public class Quest {
     @Column(name = "picture_url", nullable = false,columnDefinition = "TEXT")
     private String picture_url;
 
-    @Column(name = "rating",nullable = false)
-    private Integer rating;
-
     @Column(name = "num_of_steps",nullable = false)
     private Integer numOfSteps;
 
     @Column (name = "distance",nullable = false)
     private Float distance;
 
-    @Column (name = "duration", nullable = false)
-    private String duration;
+    @Column (name = "min_duration", nullable = false)
+    private Integer minDuration;
+
+    @Column (name = "max_duration", nullable = false)
+    private Integer maxDuration;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "city_id",nullable = false)
     private City city;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Quest quest = (Quest) o;
-        return name.equals(quest.name) &&
-                Objects.equals(description, quest.description) &&
-                difficulty.equals(quest.difficulty) &&
-                typeReward == quest.typeReward &&
-                questType == quest.questType &&
-                reward.equals(quest.reward) &&
-                picture_url.equals(quest.picture_url) &&
-                rating.equals(quest.rating) &&
-                numOfSteps.equals(quest.numOfSteps) &&
-                distance.equals(quest.distance) &&
-                duration.equals(quest.duration) &&
-                city.equals(quest.city);
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quest", cascade = CascadeType.ALL)
+    private List<Rating> ratings = new ArrayList<>();
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name,
-                description,
-                difficulty,
-                typeReward,
-                questType,
-                reward,
-                picture_url,
-                rating,
-                numOfSteps,
-                distance,
-                duration,
-                city);
-    }
 }

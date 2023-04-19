@@ -1,4 +1,4 @@
-package com.example.QuestMisto.Model;
+package com.example.QuestMisto.models.enums;
 
 public enum QuestType {
     GASTRO,
