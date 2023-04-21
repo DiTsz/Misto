@@ -1,5 +1,8 @@
 package com.example.QuestMisto.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
@@ -15,10 +18,48 @@ public class Rating {
     @Type(type = "uuid-char")
     private UUID Id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "quest_id",nullable = false)
     private Quest quest;
 
     @Column(name = "rating",nullable = false)
     private Integer rating;
+
+    public Rating() {
+    }
+    public Rating(Quest quest, Integer rating) {
+        this.quest = quest;
+        this.rating = rating;
+    }
+
+    public UUID getId() {
+        return Id;
+    }
+
+    public void setId(UUID id) {
+        Id = id;
+    }
+
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        this.quest = quest;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Rating{" +
+                ", rating=" + rating +
+                '}';
+    }
 }
