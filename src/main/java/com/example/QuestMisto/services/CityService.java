@@ -6,12 +6,14 @@ import com.example.QuestMisto.models.enums.CityName;
 import com.example.QuestMisto.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class CityService implements RepositoryService {
+@Transactional
+public class CityService implements RepositoryService<City> {
     private final CityRepository cityRepository;
 
     @Autowired
@@ -35,15 +37,16 @@ public class CityService implements RepositoryService {
     }
 
     @Override
-    public void save(Object entity) {
-        cityRepository.save((City) entity);
+    public void save(City entity) {
+        cityRepository.save(entity);
     }
 
     @Override
-    public void delete(Object entity) {
-        cityRepository.delete((City) entity);
-
+    public void delete(City entity) {
+        cityRepository.delete(entity);
     }
+
+
 }
 
 
