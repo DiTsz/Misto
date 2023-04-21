@@ -1,23 +1,16 @@
 package com.example.QuestMisto.models;
 
 import com.example.QuestMisto.models.enums.CityName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "city")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class City {
     @javax.persistence.Id
     @GeneratedValue(generator = "uuid2")
@@ -36,21 +29,64 @@ public class City {
     @Column(name = "picture_url", columnDefinition = "TEXT")
     private String pictureUrl;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "city", cascade = CascadeType.ALL)
     private List<Quest> quests = new ArrayList<>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-       City city = (City) o;
+    public City() {
+    }
 
-        return Id == city.getId();
+    public City(CityName cityName, String description, String pictureUrl) {
+        this.cityName = cityName;
+        this.description = description;
+        this.pictureUrl = pictureUrl;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(Id);
+    public String toString() {
+        return "City{" +
+                "cityName=" + cityName.name() +
+                ", description='" + description + '\'' +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                '}';
     }
 
+    public UUID getId() {
+        return Id;
+    }
+
+    public void setId(UUID id) {
+        Id = id;
+    }
+
+    public CityName getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(CityName cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public List<Quest> getQuests() {
+        return quests;
+    }
+
+    public void setQuests(List<Quest> quests) {
+        this.quests = quests;
+    }
 }
