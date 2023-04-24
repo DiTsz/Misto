@@ -100,7 +100,7 @@ header > img{
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-	margin-top: 200px;
+	margin-top: 110px;
 }
 
 .quest-name{
@@ -144,10 +144,11 @@ header > img{
     align-items: center;
     column-gap: 60px;
     row-gap: 10px;
-    margin-top: 20px;
     align-content: flex-start;
     justify-content: center;
     flex-wrap: wrap;
+    position: absolute;
+    bottom: 50px;
 }
 
 .quest_characteristic{
@@ -159,7 +160,7 @@ header > img{
 }
 
 .quest_characteristic > *{
-	height: 50px;
+	height: 40px;
 }
 
 .info-title, .info-value {
@@ -167,10 +168,10 @@ header > img{
 }
 
 .info-title{
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .info-value{
 	font-weight: bold;
-	font-size: 24px;
+	font-size: 20px;
 }
