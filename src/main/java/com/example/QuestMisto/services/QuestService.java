@@ -8,6 +8,8 @@ import com.example.QuestMisto.repositories.QuestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -62,4 +64,13 @@ public class QuestService implements RepositoryService<Quest> {
                 .toList();
 
     }
+     public List<Quest> getFirst5OrderByRatings(){
+         List<Quest> quests = new ArrayList<>();
+         for(UUID id: questRepository.findFirst5IdsOrderByRating()){
+             Quest quest = questRepository.findById(id).get();
+             quests.add(quest);
+         }
+        return quests;
+    }
+
 }

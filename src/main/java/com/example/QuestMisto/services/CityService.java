@@ -45,6 +45,9 @@ public class CityService implements RepositoryService<City> {
     public void delete(City entity) {
         cityRepository.delete(entity);
     }
+    public City getByCityName(CityName cityName){
+        return cityRepository.findByCityName(cityName).orElse(null);
+    }
 
 
 }
