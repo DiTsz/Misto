@@ -22,6 +22,10 @@ public class Rating {
     @JoinColumn(name = "quest_id",nullable = false)
     private Quest quest;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
+
     @Column(name = "rating",nullable = false)
     private Integer rating;
 
@@ -46,6 +50,14 @@ public class Rating {
 
     public void setQuest(Quest quest) {
         this.quest = quest;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Integer getRating() {
