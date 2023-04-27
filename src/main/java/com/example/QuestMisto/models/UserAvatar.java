@@ -18,7 +18,7 @@ public class UserAvatar {
     @Type(type = "uuid-char")
     private UUID Id;
 
-    @Column(name = "name", columnDefinition = "VARCHAR(45)")
+    @Column(name = "name", columnDefinition = "VARCHAR(45)",unique = true)
     private String name;
 
     @Column(name = "picture_url",columnDefinition = "TEXT")

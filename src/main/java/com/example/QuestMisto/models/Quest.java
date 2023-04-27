@@ -26,7 +26,7 @@ public class Quest {
     @Type(type = "uuid-char")
     private UUID Id;
 
-    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(45)")
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(45)",unique = true)
     private String name;
 
     @Column(name = "description")

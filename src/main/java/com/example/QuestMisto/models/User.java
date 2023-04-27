@@ -20,13 +20,13 @@ public class User {
     @Type(type = "uuid-char")
     private UUID Id;
 
-    @Column(name = "username", columnDefinition = "VARCHAR(100)", nullable = false)
+    @Column(name = "username", columnDefinition = "VARCHAR(100)", nullable = false,unique = true)
     private String username;
 
-    @Column(name = "password", columnDefinition = "VARCHAR(20)", nullable = false)
+    @Column(name = "password", columnDefinition = "VARCHAR(255)", nullable = false,unique = true)
     private String password;
 
-    @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false)
+    @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false,unique = true)
     private String email;
 
     @Column(name = "num_of_xp")
@@ -49,6 +49,14 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public User(String username, String password, String email, Role role, UserAvatar userAvatar) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.userAvatar = userAvatar;
     }
 
     public UUID getId() {
