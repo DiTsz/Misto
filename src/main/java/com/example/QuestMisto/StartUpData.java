@@ -1,15 +1,9 @@
 package com.example.QuestMisto;
 
-import com.example.QuestMisto.models.Rating;
-import com.example.QuestMisto.models.enums.Difficulty;
-import com.example.QuestMisto.services.CityService;
-import com.example.QuestMisto.services.QuestService;
-import com.example.QuestMisto.models.City;
-import com.example.QuestMisto.models.Quest;
-import com.example.QuestMisto.models.enums.CityName;
-import com.example.QuestMisto.models.enums.QuestType;
-import com.example.QuestMisto.models.enums.TypeReward;
-import com.example.QuestMisto.services.RatingService;
+import com.example.QuestMisto.models.*;
+import com.example.QuestMisto.models.enums.*;
+import com.example.QuestMisto.services.*;
+
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -20,24 +14,45 @@ public class StartUpData implements CommandLineRunner {
     private final CityService cityService;
     private final QuestService questService;
     private final RatingService ratingService;
+    private final UserService userService;
+    private final UserAvatarService userAvatarService;
 
-    public StartUpData(CityService cityService, QuestService questService, RatingService ratingService) {
+    public StartUpData(CityService cityService,
+                       QuestService questService,
+                       RatingService ratingService,
+                       UserService userService,
+                       UserAvatarService userAvatarService) {
         this.cityService = cityService;
         this.questService = questService;
         this.ratingService = ratingService;
+        this.userService = userService;
+        this.userAvatarService = userAvatarService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-        //exampleUsers();
-        //exampleCities();
-        //exampleQuests();
-        //exampleRatings();
+        exampleAvatars();
+        exampleUsers();
+        exampleCities();
+        exampleQuests();
+        exampleRatings();
         //test();
     }
 
-private void exampleUsers(){
-}
+    private void exampleAvatars() {
+        UserAvatar defaultAvatar = new UserAvatar("Default avatar", "https://png.pngtree.com" +
+                "/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg", 0);
+        userAvatarService.save(defaultAvatar);
+    }
+
+    private void exampleUsers() {
+        UserAvatar defaultAvatar = userAvatarService.getByName("Default avatar");
+        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar);
+        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, defaultAvatar);
+        userService.save(user);
+        userService.save(admin);
+    }
+
     private void exampleCities() {
         City city1 = new City();
         City city2 = new City();
@@ -77,8 +92,8 @@ private void exampleUsers(){
                 QuestType.GASTRO,
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kharkiv);
+                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
+                12, 1200f, 90, 120, kharkiv);
 
         Quest quest2 = new Quest("Lviv quest",
                 "Quest description",
@@ -87,8 +102,8 @@ private void exampleUsers(){
                 QuestType.ENTERTAINMENT,
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,lviv);
+                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
+                12, 1200f, 90, 120, lviv);
         Quest quest3 = new Quest("Cymska quest2",
                 "Quest description",
                 Difficulty.MEDIUM,
@@ -96,8 +111,8 @@ private void exampleUsers(){
                 QuestType.GASTRO,
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kharkiv);
+                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
+                12, 1200f, 90, 120, kharkiv);
         Quest quest4 = new Quest("Cymska quest3",
                 "Quest description",
                 Difficulty.MEDIUM,
@@ -105,8 +120,8 @@ private void exampleUsers(){
                 QuestType.GASTRO,
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kharkiv);
+                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
+                12, 1200f, 90, 120, kharkiv);
         Quest quest5 = new Quest("Kyiv quest",
                 "Quest description",
                 Difficulty.HARD,
@@ -114,8 +129,8 @@ private void exampleUsers(){
                 QuestType.SCIENCE,
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kyiv);
+                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
+                12, 1200f, 90, 120, kyiv);
         Quest quest6 = new Quest("Cymska quest4",
                 "Quest description",
                 Difficulty.MEDIUM,
@@ -124,7 +139,7 @@ private void exampleUsers(){
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
                         "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kharkiv);
+                12, 1200f, 90, 120, kharkiv);
         Quest quest7 = new Quest("Cymska quest5",
                 "Quest description",
                 Difficulty.MEDIUM,
@@ -133,7 +148,7 @@ private void exampleUsers(){
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
                         "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kharkiv);
+                12, 1200f, 90, 120, kharkiv);
         Quest quest8 = new Quest("Cymska quest6",
                 "Quest description",
                 Difficulty.MEDIUM,
@@ -142,7 +157,7 @@ private void exampleUsers(){
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
                         "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12,1200f,90,120,kharkiv);
+                12, 1200f, 90, 120, kharkiv);
 
         questService.save(quest1);
         questService.save(quest2);
@@ -156,6 +171,7 @@ private void exampleUsers(){
     }
 
     public void exampleRatings() {
+        User user = userService.getByName("user");
         Quest quest1 = questService.getByName("Cymska quest1");
         Quest quest2 = questService.getByName("Cymska quest2");
         Quest quest3 = questService.getByName("Cymska quest3");
@@ -165,40 +181,41 @@ private void exampleUsers(){
         Quest quest7 = questService.getByName("Kyiv quest");
         Quest quest8 = questService.getByName("Lviv quest");
 
-        Rating rating1 = new Rating(quest1, 25);
-        Rating rating2 = new Rating(quest1, 30);
+        Rating rating1 = new Rating(quest1, user, 25);
+        Rating rating4 = new Rating(quest2, user, 90);
+        Rating rating7 = new Rating(quest3, user, 60);
+        Rating rating10 = new Rating(quest4, user, 100);
+        Rating rating12 = new Rating(quest5, user, 8);
+        Rating rating14 = new Rating(quest6, user, 75);
+        Rating rating16 = new Rating(quest7, user, 88);
+        Rating rating17 = new Rating(quest8, user, 61);
+
+       /* Rating rating2 = new Rating(quest1, 30);
         Rating rating3 = new Rating(quest1, 36);
-        Rating rating4 = new Rating(quest2, 90);
         Rating rating5 = new Rating(quest2, 97);
         Rating rating6 = new Rating(quest2, 95);
-        Rating rating7 = new Rating(quest3, 60);
         Rating rating8 = new Rating(quest3, 78);
         Rating rating9 = new Rating(quest3, 66);
-        Rating rating10 = new Rating(quest4, 100);
         Rating rating11 = new Rating(quest4, 99);
-        Rating rating12 = new Rating(quest5, 8);
         Rating rating13 = new Rating(quest5, 10);
-        Rating rating14 = new Rating(quest6, 75);
-        Rating rating15 = new Rating(quest6, 81);
-        Rating rating16 = new Rating(quest7, 88);
-        Rating rating17 = new Rating(quest8, 61);
+        Rating rating15 = new Rating(quest6, 81);*/
 
 
         ratingService.save(rating1);
-        ratingService.save(rating2);
-        ratingService.save(rating3);
+        //ratingService.save(rating2);
+        //ratingService.save(rating3);
         ratingService.save(rating4);
-        ratingService.save(rating5);
-        ratingService.save(rating6);
+        //ratingService.save(rating5);
+        //ratingService.save(rating6);
         ratingService.save(rating7);
-        ratingService.save(rating8);
-        ratingService.save(rating9);
+        // ratingService.save(rating8);
+        //ratingService.save(rating9);
         ratingService.save(rating10);
-        ratingService.save(rating11);
+        // ratingService.save(rating11);
         ratingService.save(rating12);
-        ratingService.save(rating13);
+        //ratingService.save(rating13);
         ratingService.save(rating14);
-        ratingService.save(rating15);
+        //ratingService.save(rating15);
         ratingService.save(rating16);
         ratingService.save(rating17);
 
@@ -207,7 +224,10 @@ private void exampleUsers(){
 
     public void test() {
         //System.out.println(questService.getByCityNameSortedByRating(CityName.KHARKIV));
-        System.out.println(questService.getFirst5OrderByRatings());
+        //System.out.println(questService.getFirst5OrderByRatings());
+        System.out.println(userService.getAll());
+        //System.out.println(questService.getAll());
+
     }
 
 }

@@ -31,8 +31,10 @@ public class Rating {
 
     public Rating() {
     }
-    public Rating(Quest quest, Integer rating) {
+
+    public Rating(Quest quest, User user, Integer rating) {
         this.quest = quest;
+        this.user = user;
         this.rating = rating;
     }
 

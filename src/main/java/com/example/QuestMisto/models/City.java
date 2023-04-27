@@ -19,7 +19,7 @@ public class City {
     @Type(type = "uuid-char")
     private UUID Id;
 
-    @Column(name = "city_name",nullable = false)
+    @Column(name = "city_name",nullable = false, unique = true)
     @Enumerated(EnumType.ORDINAL)
     private CityName cityName;
 
