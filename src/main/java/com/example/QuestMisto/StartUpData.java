@@ -29,12 +29,15 @@ public class StartUpData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        exampleCities();
-        exampleQuests();
-        exampleRatings();
-        test();
+        //exampleUsers();
+        //exampleCities();
+        //exampleQuests();
+        //exampleRatings();
+        //test();
     }
 
+private void exampleUsers(){
+}
     private void exampleCities() {
         City city1 = new City();
         City city2 = new City();
