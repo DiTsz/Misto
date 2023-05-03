@@ -1,6 +1,7 @@
 package com.example.QuestMisto.models;
 
 import com.example.QuestMisto.models.enums.Role;
+import com.example.QuestMisto.models.enums.Status;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -35,6 +36,9 @@ public class User {
     @Column (name = "role", nullable = false)
     private Role role;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.ORDINAL)
+    private Status status;
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.ALL)
     private List<Rating> ratings = new ArrayList<>();
 
@@ -51,12 +55,13 @@ public class User {
         this.role = role;
     }
 
-    public User(String username, String password, String email, Role role, UserAvatar userAvatar) {
+    public User(String username, String password, String email, Role role, UserAvatar userAvatar,Status status) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
         this.userAvatar = userAvatar;
+        this.status=status;
     }
 
     public UUID getId() {
@@ -105,6 +110,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override

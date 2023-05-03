@@ -47,8 +47,8 @@ public class StartUpData implements CommandLineRunner {
 
     private void exampleUsers() {
         UserAvatar defaultAvatar = userAvatarService.getByName("Default avatar");
-        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar);
-        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, defaultAvatar);
+        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar,Status.ACTIVE);
+        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, defaultAvatar,Status.ACTIVE);
         userService.save(user);
         userService.save(admin);
     }
