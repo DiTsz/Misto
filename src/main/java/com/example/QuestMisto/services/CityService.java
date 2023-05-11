@@ -45,6 +45,12 @@ public class CityService implements RepositoryService<City> {
     public void delete(City entity) {
         cityRepository.delete(entity);
     }
+
+    @Override
+    public City edit(City entity) {
+        return null;
+    }
+
     public City getByCityName(CityName cityName){
         return cityRepository.findByCityName(cityName).orElse(null);
     }

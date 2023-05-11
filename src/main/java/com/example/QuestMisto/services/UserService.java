@@ -22,16 +22,19 @@ public class UserService implements RepositoryService<User> {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
+    private final UserAvatarService userAvatarService;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        BCryptPasswordEncoder bCryptPasswordEncoder,
                        UserDetailsService userDetailsService,
-                       AuthenticationManager authenticationManager) {
+                       AuthenticationManager authenticationManager,
+                       UserAvatarService userAvatarService) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
+        this.userAvatarService = userAvatarService;
     }
 
     @Override
@@ -51,8 +54,17 @@ public class UserService implements RepositoryService<User> {
 
     @Override
     public void save(User entity) {
-        entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-        userRepository.save(entity);
+
+        if (entity.getUserAvatar() == null||entity.getNumOfXp() < entity.getUserAvatar().getRequiredXp()) {
+            entity.setUserAvatar(userAvatarService.getByName("Default avatar"));
+            entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+            userRepository.save(entity);
+
+        } else {
+            userRepository.save(entity);
+            entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+            userRepository.save(entity);
+        }
     }
 
     @Override
@@ -60,6 +72,25 @@ public class UserService implements RepositoryService<User> {
         userRepository.delete(entity);
     }
 
+    @Override
+    public User edit(User entity) {
+        return null;
+    }
+public User editWithPassword(User entity,String oldPassword,String newPassword){
+        User user = new User();
+        if(oldPassword.equals(entity.getPassword()))
+            user.setPassword(newPassword);
+
+        user.setId(entity.getId());
+        user.setUsername(entity.getUsername());
+        user.setEmail(entity.getEmail());
+        user.setNumOfXp(entity.getNumOfXp());
+        user.setUserAvatar(entity.getUserAvatar());
+        user.setStatus(entity.getStatus());
+        user.setRole(entity.getRole());
+        user.setRatings(entity.getRatings());
+        return user;
+}
     public User getByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }

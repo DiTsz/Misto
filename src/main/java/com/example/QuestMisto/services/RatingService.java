@@ -43,6 +43,12 @@ public class RatingService implements RepositoryService<Rating> {
     public void delete(Rating entity) {
         ratingRepository.delete(entity);
     }
+
+    @Override
+    public Rating edit(Rating entity) {
+        return null;
+    }
+
     public List<Rating> getAllByRating(Integer rating){
         return ratingRepository.findAllByRating(rating);
     }

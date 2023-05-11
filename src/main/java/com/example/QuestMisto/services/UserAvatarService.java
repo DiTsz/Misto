@@ -43,4 +43,9 @@ public class UserAvatarService implements RepositoryService<UserAvatar> {
         userAvatarRepository.delete(entity);
     }
 
+    @Override
+    public UserAvatar edit(UserAvatar entity) {
+        return null;
+    }
+
 }

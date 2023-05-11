@@ -9,4 +9,5 @@ public interface RepositoryService<T> {
     T getById(UUID id);
     void save(T entity);
     void delete(T entity);
+    T edit(T entity);
 }

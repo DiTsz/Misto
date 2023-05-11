@@ -13,7 +13,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "user")
 public class User {
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -46,6 +45,7 @@ public class User {
     @JoinColumn(name = "avatar_id")
     private UserAvatar userAvatar;
     public User() {
+        this.numOfXp=0;
     }
 
     public User(String username, String password, String email, Role role) {
@@ -55,13 +55,20 @@ public class User {
         this.role = role;
     }
 
-    public User(String username, String password, String email, Role role, UserAvatar userAvatar,Status status) {
+    public User(String username,
+                String password,
+                String email,
+                Role role,
+                UserAvatar userAvatar,
+                Status status) {
+
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
         this.userAvatar = userAvatar;
         this.status=status;
+        this.numOfXp=0;
     }
 
     public UUID getId() {
@@ -118,6 +125,22 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
+    public UserAvatar getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(UserAvatar userAvatar) {
+        this.userAvatar = userAvatar;
     }
 
     @Override
