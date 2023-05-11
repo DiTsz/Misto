@@ -8,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Log4j2
 public class StartUpData implements CommandLineRunner {
@@ -16,17 +18,20 @@ public class StartUpData implements CommandLineRunner {
     private final RatingService ratingService;
     private final UserService userService;
     private final UserAvatarService userAvatarService;
+     private final CompletedQuestsService completedQuestsService;
 
     public StartUpData(CityService cityService,
                        QuestService questService,
                        RatingService ratingService,
                        UserService userService,
-                       UserAvatarService userAvatarService) {
+                       UserAvatarService userAvatarService,
+                       CompletedQuestsService completedQuestsService) {
         this.cityService = cityService;
         this.questService = questService;
         this.ratingService = ratingService;
         this.userService = userService;
         this.userAvatarService = userAvatarService;
+        this.completedQuestsService = completedQuestsService;
     }
 
     @Override
@@ -36,17 +41,18 @@ public class StartUpData implements CommandLineRunner {
         exampleCities();
         exampleQuests();
         exampleRatings();
-        //test();
+        exampleCompletedQuests();
+        test();
     }
 
     private void exampleAvatars() {
         UserAvatar defaultAvatar = new UserAvatar("Default avatar", "https://png.pngtree.com" +
                 "/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg", 0);
-        UserAvatar firstAvatar = new UserAvatar("First avatar","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg." +
+        UserAvatar firstAvatar = new UserAvatar("First avatar", "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg." +
                 "freepik.com%2Ffree-icon%2Farcheologist_318-822403.jpg%3Fw%3D2000&tbnid=kNlNQlrXR4nBxM&vet=12ahUKEw" +
                 "jI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photo" +
                 "s-vectors%2Favatar-hat%2F8&docid=cX-xIctxXoxUoM&w=512&h=512&itg=1&q=the%20explorer%20avatar&ved=2a" +
-                "hUKEwjI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ",100);
+                "hUKEwjI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ", 100);
         userAvatarService.save(defaultAvatar);
         userAvatarService.save(firstAvatar);
     }
@@ -54,8 +60,8 @@ public class StartUpData implements CommandLineRunner {
     private void exampleUsers() {
         UserAvatar defaultAvatar = userAvatarService.getByName("Default avatar");
         UserAvatar firstAvatar = userAvatarService.getByName("First avatar");
-        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar,Status.ACTIVE);
-        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, firstAvatar,Status.ACTIVE);
+        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar, Status.ACTIVE);
+        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, firstAvatar, Status.ACTIVE);
        /* admin.setNumOfXp(100);
         admin.setUserAvatar(firstAvatar);*/
         userService.save(user);
@@ -167,7 +173,9 @@ public class StartUpData implements CommandLineRunner {
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
                         "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
                 12, 1200f, 90, 120, kharkiv);
-
+        quest1.changeIsLiked();
+        quest5.changeIsLiked();
+        quest8.changeIsLiked();
         questService.save(quest1);
         questService.save(quest2);
         questService.save(quest3);
@@ -230,12 +238,28 @@ public class StartUpData implements CommandLineRunner {
 
 
     }
+public void exampleCompletedQuests(){
+    User user = userService.getByName("user");
+    Quest quest1 = questService.getByName("Cymska quest1");
+    Quest quest5 = questService.getByName("Cymska quest5");
+    Quest quest6 = questService.getByName("Cymska quest6");
 
+    CompletedQuests completedQuests = new CompletedQuests(user, quest1);
+    CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
+    CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
+
+    completedQuestsService.save(completedQuests);
+    completedQuestsService.save(completedQuests2);
+    completedQuestsService.save(completedQuests3);
+
+}
     public void test() {
         //System.out.println(questService.getByCityNameSortedByRating(CityName.KHARKIV));
         //System.out.println(questService.getFirst5OrderByRatings());
-        System.out.println(userService.getAll());
+        //System.out.println(userService.getAll());
         //System.out.println(questService.getAll());
+        //System.out.println(questService.getQuestsInFavorites());
+        System.out.println(completedQuestsService.getAll());
 
     }
 
