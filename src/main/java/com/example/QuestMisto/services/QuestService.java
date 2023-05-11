@@ -59,6 +59,9 @@ public class QuestService implements RepositoryService<Quest> {
         return null;
     }
 
+    public List<Quest> getQuestsInFavorites(){
+        return  questRepository.findAllFavouritesQuests();
+    }
     public List<Quest> getByCityNameSortedByRating(CityName cityName){
         RatingComparator ratingComparator = new RatingComparator();
         return questRepository

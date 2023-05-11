@@ -26,7 +26,7 @@ public class Quest {
     @Type(type = "uuid-char")
     private UUID Id;
 
-    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(45)",unique = true)
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(45)", unique = true)
     private String name;
 
     @Column(name = "description")
@@ -37,7 +37,7 @@ public class Quest {
     private Difficulty difficulty;
 
     @Column(name = "type_reward", nullable = false)
-   @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.ORDINAL)
     private TypeReward typeReward;
 
     @Column(name = "quest_type", nullable = false)
@@ -66,8 +66,15 @@ public class Quest {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "quest", cascade = CascadeType.ALL)
+    @Column(name = "is_liked")
+    private boolean isLiked;
+
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
+    private List<CompletedQuests> completedQuests = new ArrayList<>();
 
     public Quest() {
     }
@@ -96,6 +103,7 @@ public class Quest {
         this.minDuration = minDuration;
         this.maxDuration = maxDuration;
         this.city = city;
+        this.isLiked = false;
     }
 
     public void setDuration(int minDuration, int maxDuration) {
@@ -215,22 +223,35 @@ public class Quest {
         this.ratings = ratings;
     }
 
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public void setLiked(boolean liked) {
+        isLiked = liked;
+    }
+
+    public void changeIsLiked() {
+        isLiked = !isLiked;
+    }
+
     @Override
     public String toString() {
         return "Quest{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", difficulty=" + difficulty.name() +
-                ", typeReward=" + typeReward.name() +
-                ", questType=" + questType.name() +
-                ", reward='" + reward + '\'' +
+                "name=' " + name + '\'' +
+                ", description=' " + description + '\'' +
+                ", difficulty= " + difficulty.name() +
+                ", typeReward= " + typeReward.name() +
+                ", questType= " + questType.name() +
+                ", reward=' " + reward + '\'' +
                 ", picture_url='" + picture_url + '\'' +
-                ", numOfSteps=" + numOfSteps +
-                ", distance=" + distance +
-                ", minDuration=" + minDuration +
-                ", maxDuration=" + maxDuration +
-                ", city=" + city +
-                ", ratings=" + ratings +
-                '}';
+                ", numOfSteps= " + numOfSteps +
+                ", distance= " + distance +
+                ", minDuration= " + minDuration +
+                ", maxDuration= " + maxDuration +
+                ", city= " + city +
+                ", ratings= " + ratings +
+                ", is Liked= " + isLiked +
+                "}\n";
     }
 }

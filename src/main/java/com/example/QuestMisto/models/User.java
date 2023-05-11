@@ -38,9 +38,11 @@ public class User {
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
+    private List<CompletedQuests> completedQuest = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "avatar_id")
     private UserAvatar userAvatar;
