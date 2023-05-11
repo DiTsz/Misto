@@ -53,6 +53,12 @@ public class QuestService implements RepositoryService<Quest> {
     public void delete(Quest entity) {
         questRepository.delete(entity);
     }
+
+    @Override
+    public Quest edit(Quest entity) {
+        return null;
+    }
+
     public List<Quest> getByCityNameSortedByRating(CityName cityName){
         RatingComparator ratingComparator = new RatingComparator();
         return questRepository

@@ -42,13 +42,22 @@ public class StartUpData implements CommandLineRunner {
     private void exampleAvatars() {
         UserAvatar defaultAvatar = new UserAvatar("Default avatar", "https://png.pngtree.com" +
                 "/png-vector/20190223/ourmid/pngtree-vector-avatar-icon-png-image_695765.jpg", 0);
+        UserAvatar firstAvatar = new UserAvatar("First avatar","https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg." +
+                "freepik.com%2Ffree-icon%2Farcheologist_318-822403.jpg%3Fw%3D2000&tbnid=kNlNQlrXR4nBxM&vet=12ahUKEw" +
+                "jI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photo" +
+                "s-vectors%2Favatar-hat%2F8&docid=cX-xIctxXoxUoM&w=512&h=512&itg=1&q=the%20explorer%20avatar&ved=2a" +
+                "hUKEwjI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ",100);
         userAvatarService.save(defaultAvatar);
+        userAvatarService.save(firstAvatar);
     }
 
     private void exampleUsers() {
         UserAvatar defaultAvatar = userAvatarService.getByName("Default avatar");
+        UserAvatar firstAvatar = userAvatarService.getByName("First avatar");
         User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar,Status.ACTIVE);
-        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, defaultAvatar,Status.ACTIVE);
+        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, firstAvatar,Status.ACTIVE);
+       /* admin.setNumOfXp(100);
+        admin.setUserAvatar(firstAvatar);*/
         userService.save(user);
         userService.save(admin);
     }
