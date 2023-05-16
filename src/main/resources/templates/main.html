@@ -7,7 +7,7 @@
     <title>Misto</title>
 </head>
 <body>
-<header>
+<header th:class="${fixedHeader!=null && fixedHeader ? 'fixed' : ''}">
     <img src="logos/misto.svg" alt="Misto"/>
     <div class="header-links">
         <a href="#">Головна</a>
@@ -34,7 +34,7 @@
                 </a>
             </div>
         </div>
-        <div class="quest_characteristics">
+        <div class="quest_characteristics row">
             <div class="quest_characteristic">
                 <img src="logos/category.svg" alt="Misto"/>
                 <div class="quest-characteristic-info">
