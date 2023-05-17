@@ -61,7 +61,7 @@ public class UserDetailsImpl implements UserDetails {
         return isActive;
     }
 
-    public static UserDetails fromUser(com.example.QuestMisto.models.User user) {
+    public static UserDetails fromUser(com.example.QuestMisto.models.entities.User user) {
         return new User(
                 user.getUsername(),
                 user.getPassword(),

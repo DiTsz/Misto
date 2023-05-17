@@ -1,6 +1,6 @@
 package com.example.QuestMisto.repositories;
 
-import com.example.QuestMisto.models.CompletedQuests;
+import com.example.QuestMisto.models.entities.CompletedQuests;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

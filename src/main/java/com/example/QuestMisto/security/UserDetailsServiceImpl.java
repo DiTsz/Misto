@@ -1,6 +1,6 @@
 package com.example.QuestMisto.security;
 
-import com.example.QuestMisto.models.User;
+import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.repositories.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

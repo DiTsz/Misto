@@ -1,6 +1,6 @@
 package com.example.QuestMisto.repositories;
 
-import com.example.QuestMisto.models.UserAvatar;
+import com.example.QuestMisto.models.entities.UserAvatar;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

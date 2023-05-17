@@ -1,33 +1,14 @@
-// const p = 50;
-// var lastYOffset = 0;
-// var countOfQuests = getCountOfQuests();
-// var currentQuest = 0;
-// var boxes = document.querySelectorAll('.quest');
+var burgerMenu = document.getElementById("burger-menu");
+var burgerBtn = document.getElementById("burger-btn");
 
-// window.addEventListener('scroll', function() {
-//   dif = pageYOffset - lastYOffset;
-//   if(dif < -p || dif > p){
-//     if(dif > p){
-//       currentQuest++;
-//     } else {
-//       currentQuest--;
-//     }
-//     checkQuest();
-//     let box = boxes[currentQuest];
-//     box.scrollIntoView();
-//           lastYOffset = pageYOffset;
-//   }
-// });
+burgerBtn.addEventListener("click", function() {
+  burgerMenu.classList.toggle("open");
+});
 
-// function getCountOfQuests(){
-//   return document.querySelectorAll('.quest').length;
-// }
+document.addEventListener("click", function(event) {
+  var target = event.target;
 
-// function checkQuest(){
-//   if(currentQuest > countOfQuests){
-//     currentQuest = countOfQuests - 1;
-//   }else if(currentQuest < 0){
-//     currentQuest = 0;
-//   }
-
-// }
+  if (!burgerMenu.contains(target) && !burgerBtn.contains(target)) {
+    burgerMenu.classList.remove("open");
+  }
+});
