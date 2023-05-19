@@ -18,20 +18,23 @@ public class StartUpData implements CommandLineRunner {
     private final RatingService ratingService;
     private final UserService userService;
     private final UserAvatarService userAvatarService;
-     private final CompletedQuestsService completedQuestsService;
+    private final CompletedQuestsService completedQuestsService;
+    private final FeaturedQuestsService featuredQuestsService;
 
     public StartUpData(CityService cityService,
                        QuestService questService,
                        RatingService ratingService,
                        UserService userService,
                        UserAvatarService userAvatarService,
-                       CompletedQuestsService completedQuestsService) {
+                       CompletedQuestsService completedQuestsService,
+                       FeaturedQuestsService featuredQuestsService) {
         this.cityService = cityService;
         this.questService = questService;
         this.ratingService = ratingService;
         this.userService = userService;
         this.userAvatarService = userAvatarService;
         this.completedQuestsService = completedQuestsService;
+        this.featuredQuestsService = featuredQuestsService;
     }
 
     @Override
@@ -42,7 +45,8 @@ public class StartUpData implements CommandLineRunner {
         exampleQuests();
         exampleRatings();
         exampleCompletedQuests();
-        test();
+        exampleFeaturedQuests();
+        //test();
     }
 
     private void exampleAvatars() {
@@ -173,9 +177,6 @@ public class StartUpData implements CommandLineRunner {
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
                         "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
                 12, 1200f, 90, 120, kharkiv);
-        quest1.changeIsLiked();
-        quest5.changeIsLiked();
-        quest8.changeIsLiked();
         questService.save(quest1);
         questService.save(quest2);
         questService.save(quest3);
@@ -238,28 +239,44 @@ public class StartUpData implements CommandLineRunner {
 
 
     }
-public void exampleCompletedQuests(){
-    User user = userService.getByName("user");
-    Quest quest1 = questService.getByName("Cymska quest1");
-    Quest quest5 = questService.getByName("Cymska quest5");
-    Quest quest6 = questService.getByName("Cymska quest6");
 
-    CompletedQuests completedQuests = new CompletedQuests(user, quest1);
-    CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
-    CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
+    public void exampleCompletedQuests() {
+        User user = userService.getByName("user");
+        Quest quest1 = questService.getByName("Cymska quest1");
+        Quest quest5 = questService.getByName("Cymska quest5");
+        Quest quest6 = questService.getByName("Cymska quest6");
 
-    completedQuestsService.save(completedQuests);
-    completedQuestsService.save(completedQuests2);
-    completedQuestsService.save(completedQuests3);
+        CompletedQuests completedQuests = new CompletedQuests(user, quest1);
+        CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
+        CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
 
-}
+        completedQuestsService.save(completedQuests);
+        completedQuestsService.save(completedQuests2);
+        completedQuestsService.save(completedQuests3);
+
+    }
+
+    public void exampleFeaturedQuests() {
+        User user = userService.getByName("user");
+        Quest quest1 = questService.getByName("Cymska quest1");
+        Quest quest5 = questService.getByName("Cymska quest5");
+        Quest quest6 = questService.getByName("Cymska quest6");
+        Quest quest8 = questService.getByName("Lviv quest");
+
+        featuredQuestsService.addInFeatured(user,quest1);
+        featuredQuestsService.addInFeatured(user,quest5);
+        featuredQuestsService.addInFeatured(user,quest6);
+        featuredQuestsService.addInFeatured(user,quest8);
+        featuredQuestsService.removeFromFeatured(user,quest6);
+
+    }
+
     public void test() {
         //System.out.println(questService.getByCityNameSortedByRating(CityName.KHARKIV));
         //System.out.println(questService.getFirst5OrderByRatings());
         //System.out.println(userService.getAll());
         //System.out.println(questService.getAll());
-        //System.out.println(questService.getQuestsInFavorites());
-        System.out.println(completedQuestsService.getAll());
+        //System.out.println(completedQuestsService.getAll());
 
     }
 

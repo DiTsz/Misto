@@ -66,12 +66,12 @@ public class Quest {
     @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
-    @Column(name = "is_liked")
-    private boolean isLiked;
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
 
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
+    private List<FeaturedQuests> feachQuests = new ArrayList<>();
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
     private List<CompletedQuests> completedQuests = new ArrayList<>();
@@ -103,7 +103,6 @@ public class Quest {
         this.minDuration = minDuration;
         this.maxDuration = maxDuration;
         this.city = city;
-        this.isLiked = false;
     }
 
     public void setDuration(int minDuration, int maxDuration) {
@@ -223,16 +222,20 @@ public class Quest {
         this.ratings = ratings;
     }
 
-    public boolean isLiked() {
-        return isLiked;
+    public List<FeaturedQuests> getFeachQuests() {
+        return feachQuests;
     }
 
-    public void setLiked(boolean liked) {
-        isLiked = liked;
+    public void setFeachQuests(List<FeaturedQuests> feachQuests) {
+        this.feachQuests = feachQuests;
     }
 
-    public void changeIsLiked() {
-        isLiked = !isLiked;
+    public List<CompletedQuests> getCompletedQuests() {
+        return completedQuests;
+    }
+
+    public void setCompletedQuests(List<CompletedQuests> completedQuests) {
+        this.completedQuests = completedQuests;
     }
 
     @Override
@@ -250,8 +253,7 @@ public class Quest {
                 ", minDuration= " + minDuration +
                 ", maxDuration= " + maxDuration +
                 ", city= " + city +
-                ", ratings= " + ratings +
-                ", is Liked= " + isLiked +
+                /*", ratings= " + ratings +*/
                 "}\n";
     }
 }

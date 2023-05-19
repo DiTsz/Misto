@@ -106,4 +106,5 @@ public User editWithPassword(User entity,String oldPassword,String newPassword){
             System.out.println("Error with authentication" + username);
         }
     }
+
 }

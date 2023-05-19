@@ -38,8 +38,11 @@ public class User {
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    private List<FeaturedQuests> feachQuests = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
     private List<CompletedQuests> completedQuest = new ArrayList<>();
@@ -145,12 +148,28 @@ public class User {
         this.userAvatar = userAvatar;
     }
 
+    public List<FeaturedQuests> getFeachQuests() {
+        return feachQuests;
+    }
+
+    public void setFeachQuests(List<FeaturedQuests> feachQuests) {
+        this.feachQuests = feachQuests;
+    }
+
+    public List<CompletedQuests> getCompletedQuest() {
+        return completedQuest;
+    }
+
+    public void setCompletedQuest(List<CompletedQuests> completedQuest) {
+        this.completedQuest = completedQuest;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", ratings=" + ratings +
+                /*", ratings=" + ratings +*/
                 '}';
     }
 }
