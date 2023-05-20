@@ -1,10 +1,8 @@
 package com.example.QuestMisto.repositories;
 
-import com.example.QuestMisto.models.CompletedQuests;
 import com.example.QuestMisto.models.FeaturedQuests;
 import com.example.QuestMisto.models.Quest;
 import com.example.QuestMisto.models.User;
-import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

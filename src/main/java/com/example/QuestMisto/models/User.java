@@ -1,5 +1,6 @@
 package com.example.QuestMisto.models;
 
+import com.example.QuestMisto.models.enums.AuthProvider;
 import com.example.QuestMisto.models.enums.Role;
 import com.example.QuestMisto.models.enums.Status;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,7 +24,7 @@ public class User {
     @Column(name = "username", columnDefinition = "VARCHAR(100)", nullable = false,unique = true)
     private String username;
 
-    @Column(name = "password", columnDefinition = "VARCHAR(255)", nullable = false,unique = true)
+    @Column(name = "password", columnDefinition = "VARCHAR(255)",unique = true)
     private String password;
 
     @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false,unique = true)
@@ -38,6 +39,11 @@ public class User {
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
+
+    @Column(name ="auth_provider")
+    @Enumerated(EnumType.ORDINAL)
+    private AuthProvider authProvider;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
 
@@ -130,6 +136,14 @@ public class User {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public AuthProvider getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(AuthProvider authProvider) {
+        this.authProvider = authProvider;
     }
 
     public List<Rating> getRatings() {

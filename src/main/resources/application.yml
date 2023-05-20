@@ -1,0 +1,54 @@
+
+#    spring.datasource.url = jdbc:mysql://localhost:3306/misto
+#    spring.datasource.username= root
+#    spring.datasource.password= password
+#    spring.datasource.driver-class-name= com.mysql.cj.jdbc.Driver
+#
+#    spring.jpa.properties.hibernate.show_sql=true
+#    spring.jpa.hibernate.ddl-auto = create
+#    spring.jpa.open-in-view=false
+#    spring.jpa.properties.hibernate.dialect = org.hibernate.dialect.MySQL8Dialect
+#    logging.level.org.hibernate.sql = DEBUG
+#
+#    spring.security.oauth2.client.registration.google.client-id=204661829166-65qbmt95un6pv8a0b8orc5li39a0e05n.apps.googleusercontent.com
+#    spring.security.oauth2.client.registration.google.client-secret=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
+#    spring.security.oauth2.client.registration.google.scope= email
+#    server.error.include-binding-errors=always
+#    server.error.include-message=always
+#    server.port= 8011
+
+  spring:
+    datasource:
+      url: jdbc:mysql://localhost:3306/misto
+      username: root
+      password: password
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      properties:
+        hibernate:
+          show_sql: true
+          dialect: org.hibernate.dialect.MySQL8Dialect
+      hibernate:
+         ddl-auto: create
+      open-in-view: false
+    security:
+        oauth2:
+          client:
+            registration:
+              google:
+                client-id: 204661829166-65qbmt95un6pv8a0b8orc5li39a0e05n.apps.googleusercontent.com
+                client-secret: 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
+                scope:
+                 - email
+                 - profile
+  logging:
+       level:
+          org:
+          hibernate:
+            sql: DEBUG
+
+  server:
+      error:
+         include-binding-errors: always
+         include-message: always
+      port: 8011

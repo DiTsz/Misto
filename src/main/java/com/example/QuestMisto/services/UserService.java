@@ -2,6 +2,8 @@ package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
 import com.example.QuestMisto.models.User;
+import com.example.QuestMisto.models.enums.AuthProvider;
+import com.example.QuestMisto.models.enums.Role;
 import com.example.QuestMisto.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,7 +57,7 @@ public class UserService implements RepositoryService<User> {
     @Override
     public void save(User entity) {
 
-        if (entity.getUserAvatar() == null||entity.getNumOfXp() < entity.getUserAvatar().getRequiredXp()) {
+        if (entity.getUserAvatar() == null || entity.getNumOfXp() < entity.getUserAvatar().getRequiredXp()) {
             entity.setUserAvatar(userAvatarService.getByName("Default avatar"));
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
             userRepository.save(entity);
@@ -76,9 +78,10 @@ public class UserService implements RepositoryService<User> {
     public User edit(User entity) {
         return null;
     }
-public User editWithPassword(User entity,String oldPassword,String newPassword){
+
+    public User editWithPassword(User entity, String oldPassword, String newPassword) {
         User user = new User();
-        if(oldPassword.equals(entity.getPassword()))
+        if (oldPassword.equals(entity.getPassword()))
             user.setPassword(newPassword);
 
         user.setId(entity.getId());
@@ -90,7 +93,8 @@ public User editWithPassword(User entity,String oldPassword,String newPassword){
         user.setRole(entity.getRole());
         user.setRatings(entity.getRatings());
         return user;
-}
+    }
+
     public User getByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
@@ -107,4 +111,19 @@ public User editWithPassword(User entity,String oldPassword,String newPassword){
         }
     }
 
+    public void createUserAfterOAuth2Login(String email, String name, AuthProvider authProvider) {
+        User user = new User();
+        user.setUsername(name);
+        user.setEmail(email);
+        user.setAuthProvider(authProvider);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+    }
+
+    public void updateUserAfterOAuth2Login(User user, String name, AuthProvider authProvider) {
+        user.setUsername(name);
+        user.setAuthProvider(authProvider);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+    }
 }
