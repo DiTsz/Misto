@@ -2,6 +2,9 @@ package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
 import com.example.QuestMisto.models.entities.User;
+import com.example.QuestMisto.models.enums.AuthProvider;
+import com.example.QuestMisto.models.enums.Role;
+import com.example.QuestMisto.models.enums.Status;
 import com.example.QuestMisto.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,11 +58,10 @@ public class UserService implements RepositoryService<User> {
     @Override
     public void save(User entity) {
 
-        if (entity.getUserAvatar() == null||entity.getNumOfXp() < entity.getUserAvatar().getRequiredXp()) {
+        if (entity.getUserAvatar() == null || entity.getNumOfXp() < entity.getUserAvatar().getRequiredXp()) {
             entity.setUserAvatar(userAvatarService.getByName("Default avatar"));
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
             userRepository.save(entity);
-
         } else {
             userRepository.save(entity);
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
@@ -76,9 +78,10 @@ public class UserService implements RepositoryService<User> {
     public User edit(User entity) {
         return null;
     }
-public User editWithPassword(User entity,String oldPassword,String newPassword){
+
+    public User editWithPassword(User entity, String oldPassword, String newPassword) {
         User user = new User();
-        if(oldPassword.equals(entity.getPassword()))
+        if (oldPassword.equals(entity.getPassword()))
             user.setPassword(newPassword);
 
         user.setId(entity.getId());
@@ -90,20 +93,57 @@ public User editWithPassword(User entity,String oldPassword,String newPassword){
         user.setRole(entity.getRole());
         user.setRatings(entity.getRatings());
         return user;
-}
+    }
+
     public User getByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public void login(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    public void login(String email, String password) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         authenticationManager.authenticate(token);
 
         if (token.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(token);
         } else {
-            System.out.println("Error with authentication" + username);
+            System.out.println("Error with authentication" + email);
         }
+    }
+
+   /* public void createUserAfterOAuth2Login(String email, String name, AuthProvider authProvider) {
+        User user = new User();
+        user.setUsername(name);
+        user.setEmail(email);
+        user.setAuthProvider(authProvider);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+    }
+
+    public void updateUserAfterOAuth2Login(User user, String name, AuthProvider authProvider) {
+        user.setUsername(name);
+        user.setAuthProvider(authProvider);
+        user.setRole(Role.USER);
+        userRepository.save(user);
+    }*/
+   public void processOAuthPostLogin(String username,String email,String oauth2ClientName) {
+       User existUser = userRepository.findByUsername(username).orElse(null);
+
+       if (existUser == null) {
+           User newUser = new User();
+           newUser.setUsername(username);
+           newUser.setEmail(email);
+           newUser.setRole(Role.USER);
+           newUser.setAuthProvider(AuthProvider.GOOGLE);
+           newUser.setStatus(Status.ACTIVE);
+           newUser.setUserAvatar(userAvatarService.getByName("default avatar"));
+           userRepository.save(newUser);
+       }
+       AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+       userRepository.updateAuthenticationType(email, authType);
+   }
+    public void updateAuthenticationType(String email, String oauth2ClientName) {
+        AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+        userRepository.updateAuthenticationType(email, authType);
     }
 }

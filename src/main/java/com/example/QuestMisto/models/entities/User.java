@@ -1,5 +1,6 @@
 package com.example.QuestMisto.models.entities;
 
+import com.example.QuestMisto.models.enums.AuthProvider;
 import com.example.QuestMisto.models.enums.Role;
 import com.example.QuestMisto.models.enums.Status;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,7 +24,7 @@ public class User {
     @Column(name = "username", columnDefinition = "VARCHAR(100)", nullable = false,unique = true)
     private String username;
 
-    @Column(name = "password", columnDefinition = "VARCHAR(255)", nullable = false,unique = true)
+    @Column(name = "password", columnDefinition = "VARCHAR(255)",unique = true)
     private String password;
 
     @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false,unique = true)
@@ -38,8 +39,16 @@ public class User {
     @Column(name = "status")
     @Enumerated(EnumType.ORDINAL)
     private Status status;
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "user", cascade = CascadeType.MERGE)
+
+    @Column(name ="auth_provider")
+    @Enumerated(EnumType.ORDINAL)
+    private AuthProvider authProvider;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
+    private List<FeaturedQuests> feachQuests = new ArrayList<>();
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
     private List<CompletedQuests> completedQuest = new ArrayList<>();
@@ -55,6 +64,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = role;
+        this.numOfXp=0;
     }
 
     public User(String username,
@@ -129,6 +139,14 @@ public class User {
         this.status = status;
     }
 
+    public AuthProvider getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(AuthProvider authProvider) {
+        this.authProvider = authProvider;
+    }
+
     public List<Rating> getRatings() {
         return ratings;
     }
@@ -145,12 +163,28 @@ public class User {
         this.userAvatar = userAvatar;
     }
 
+    public List<FeaturedQuests> getFeachQuests() {
+        return feachQuests;
+    }
+
+    public void setFeachQuests(List<FeaturedQuests> feachQuests) {
+        this.feachQuests = feachQuests;
+    }
+
+    public List<CompletedQuests> getCompletedQuest() {
+        return completedQuest;
+    }
+
+    public void setCompletedQuest(List<CompletedQuests> completedQuest) {
+        this.completedQuest = completedQuest;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                ", ratings=" + ratings +
+                /*", ratings=" + ratings +*/
                 '}';
     }
 }

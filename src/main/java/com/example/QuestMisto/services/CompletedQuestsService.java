@@ -2,6 +2,7 @@ package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
 import com.example.QuestMisto.models.entities.CompletedQuests;
+import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.repositories.CompletedQuestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +48,9 @@ public class CompletedQuestsService implements RepositoryService<CompletedQuests
     @Override
     public CompletedQuests edit(CompletedQuests entity) {
         return null;
+    }
+
+    public List<CompletedQuests> getAllByUser(User user) {
+        return completedQuestRepository.findAllByUser(user);
     }
 }

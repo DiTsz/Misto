@@ -7,28 +7,37 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "completed_quests")
-public class CompletedQuests {
-    @Id
+@Table(name = "featured_quests")
+public class FeaturedQuests {
+    @javax.persistence.Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "comp_qst_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+    @Column(name = "feach_qsts_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID Id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user")
-    private User user;
+    @JoinColumn(name = "quest",nullable = false)
+    private Quest quest;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="quest")
-    private Quest quest;
-    public CompletedQuests() {
+    @JoinColumn(name = "user",nullable = false)
+    private User user;
+
+    public FeaturedQuests() {
     }
 
-    public CompletedQuests(User user, Quest quest) {
+    public FeaturedQuests(Quest quest, User user) {
+        this.quest = quest;
         this.user = user;
-        this.quest=quest;
+    }
+
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        this.quest = quest;
     }
 
     public User getUser() {
@@ -37,13 +46,5 @@ public class CompletedQuests {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return "CompletedQuests{" +
-                "user=" + user.getEmail() +
-                ", quest="+ quest.getName() +
-                '}';
     }
 }
