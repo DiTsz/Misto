@@ -5,5 +5,4 @@ public enum QuestType {
     SCIENCE,
     ENTERTAINMENT,
     EDUCATION
-
 }
