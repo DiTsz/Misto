@@ -7,7 +7,7 @@
     <title>Misto</title>
 </head>
 <body>
-<div class="fixed-header" th:insert="~{fragments/header.html :: header}"></div>
+<div class="fixed-header" th:insert="~{fragments/header.html :: dark-header}"></div>
 <div class="quest-container">
     <div class="quest" th:each="quest : ${quests}" th:object="${quest}">
         <div class="quest-card">
@@ -16,41 +16,41 @@
             <div class=quest-card-links>
                 <a class="quest-start" th:href="@{/}">Розпочати</a>
                 <a class="more-info" th:href="@{/catalog/{id}(id=*{id})}">Детальніше&nbsp;
-                    <img src="images/arrow.svg" alt="Misto"/>
+                    <img src="logos/light_arrow.svg"/>
                 </a>
             </div>
         </div>
         <div class="quest_characteristics row">
             <div class="quest_characteristic">
-                <img src="logos/category.svg" alt="Misto"/>
+                <img class="category-img" src="logos/category.svg"/>
                 <div class="quest-characteristic-info">
                     <p class="info-title">Тип</p>
                     <p class="info-value" th:text="*{questType}"></p>
                 </div>
             </div>
             <div class="quest_characteristic">
-                <img src="logos/puzzle.svg" alt="Misto"/>
+                <img class="category-img" src="logos/puzzle.svg"/>
                 <div class="quest-characteristic-info">
                     <p class="info-title">Складність</p>
                     <p class="info-value" th:text="*{difficulty}"></p>
                 </div>
             </div>
             <div class="quest_characteristic">
-                <img src="logos/questions.svg" alt="Misto"/>
+                <img class="category-img" src="logos/questions.svg"/>
                 <div class="quest-characteristic-info">
                     <p class="info-title">Кількість завдань</p>
                     <p class="info-value" th:text="*{numOfSteps}"></p>
                 </div>
             </div>
             <div class="quest_characteristic">
-                <img src="logos/distance.svg" alt="Misto"/>
+                <img class="category-img" src="logos/distance.svg"/>
                 <div class="quest-characteristic-info">
                     <p class="info-title">Відстань</p>
                     <p class="info-value" th:text="|*{distance} км|"></p>
                 </div>
             </div>
             <div class="quest_characteristic">
-                <img src="logos/timer.svg" alt="Misto"/>
+                <img class="category-img" src="logos/timer.svg"/>
                 <div class="quest-characteristic-info">
                     <p class="info-title">Тривалість</p>
                     <p class="info-value" th:text="|*{minDuration} - *{maxDuration} хв|"></p>

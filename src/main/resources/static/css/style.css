@@ -32,7 +32,23 @@ header{
 	height: var(--header-height);
 	padding: 0 var(--header-padding) 0 var(--header-padding);
 	border-bottom: 1px solid var(--main-color);
+}
+
+.dark-header{
 	background-image: linear-gradient(to bottom, rgba(0, 0, 0, .75), rgba(0, 0, 0, .25));
+}
+
+.dark-header *{
+    color: var(--main-color);
+}
+
+.light-header{
+	background-color: var(--main-color);
+	box-shadow: 0px 0px 5px gray;
+}
+
+.light-header *{
+    color: black;
 }
 
 header > img{
@@ -118,6 +134,7 @@ header > img{
 
 .burger-menu.open{
     right: 0;
+    border-left: 1px solid black;
     transition: right .7s;
 }
 
@@ -160,6 +177,10 @@ header > img{
 	position: relative;
 	top: 2px;
 	margin-left: 3px;
+}
+
+.light-header .list:after{
+    border-top-color: black;
 }
 
 .list:hover .list-wrapper{
@@ -209,14 +230,80 @@ header > img{
 	width: 70vw;
 	height: 50px;
 	margin-left: 15%;
-	border-bottom: 3px solid #FFFCF8;
+	border-bottom: 3px solid black;
 	border-radius: 2px;
+	margin-bottom: 5px;
 }
 
 .category{
 	display: flex;
 	justify-content: center;
 	min-width: 100px;
+}
+
+.category-img{
+    height: 40px;
+    width: 40px;
+}
+
+.content{
+    height: calc(100vh - 100px - 50px * 2);
+    padding: 50px;
+}
+
+.input-form-container{
+    height: auto;
+    width: 500px;
+    margin: auto;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+}
+
+.input-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.name-input{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.name-input *{
+    width: 100%;
+}
+
+.subdo{
+    color: black;
+    text-align: center;
+}
+
+.form-title{
+    color: black;
+    text-align: center;
+}
+
+.input-form input, .input-form button{
+    height: 50px;
+    border-radius: 12px;
+}
+
+.input-form input{
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: black;
+    border: 0.5px solid #A7A7A7;
+}
+
+.input-form .btn{
+    border: none;
 }
 
 .catalog-quest{
@@ -299,8 +386,9 @@ header > img{
 .quest-start{
 	background-color: #FF8000;
 	width: 60%;
-		min-width: 100px;
+    min-width: 100px;
 	border-radius: 15px;
+	color: white;
 }
 
 .more-info{
@@ -349,4 +437,10 @@ header > img{
 
 .catalog-quest .quest_characteristic{
 	width: 100%;
+}
+
+.btn{
+    background-color: #FF8000;
+    color: var(--main-color);
+    font-size: 18px;
 }

@@ -4,9 +4,9 @@
     <title>Header</title>
 </head>
 <body>
-<header th:fragment="header">
+<header class="dark-header" th:fragment="dark-header">
     <a th:href="@{/}">
-        <img th:src="@{logos/misto.svg}"/>
+        <img th:src="@{logos/light_misto.svg}"/>
     </a>
     <div class="header-links">
         <a th:href="@{/}">Головна</a>
@@ -19,38 +19,35 @@
                 <a href="#">Ужгород</a>
             </div>
         </div>
-        <a id="burger-btn" class="burger-menu-btn" onclick="showBurgerMenu()">
-            <img th:src="@{logos/menu.svg}">
+        <a class="burger-menu-btn">
+            <img th:src="@{logos/light_menu.svg}">
         </a>
     </div>
-    <div id="burger-menu" class="burger-menu">
-        <div class="account-block">
-            <a th:href="@{/}">
-                <img th:src="@{logos/account_circle.svg}">
-            </a>
-            <div class="auth">
-                <a class="login-btn" th:href="@{/}">Login</a>
-                <a class="registration-btn" th:href="@{/}">Registration</a>
+    <div th:replace="~{fragments/burger-menu.html :: burger-menu}">
+
+    </div>
+</header>
+<header class="light-header" th:fragment="light-header">
+    <a th:href="@{/}">
+        <img th:src="@{logos/dark_misto.svg}"/>
+    </a>
+    <div class="header-links">
+        <a th:href="@{/}">Головна</a>
+        <a th:href="@{/}">Про проект</a>
+        <a th:href="@{/catalog}">Усі квести</a>
+        <div class="list">
+            <a class="header-list">Харків</a>
+            <div class="list-wrapper">
+                <a href="#">Київ</a>
+                <a href="#">Ужгород</a>
             </div>
         </div>
-        <div class="burger-links">
-            <a th:href="@{/}" class="burger-link">
-                <img th:src="@{logos/hotel_class.svg}">
-                <div class="link-title">Досягнення</div>
-            </a>
-            <a th:href="@{/}" class="burger-link">
-                <img th:src="@{logos/call_quality.svg}">
-                <div class="link-title">Контакти</div>
-            </a>
-            <a th:href="@{/}" class="burger-link">
-                <img th:src="@{logos/partner_exchange.svg}">
-                <div class="link-title">Партнери</div>
-            </a>
-            <a th:href="@{/}" class="burger-link">
-                <img th:src="@{logos/contact_support.svg}">
-                <div class="link-title">FAQ</div>
-            </a>
-        </div>
+        <a class="burger-menu-btn">
+            <img th:src="@{logos/dark_menu.svg}">
+        </a>
+    </div>
+    <div th:replace="~{fragments/burger-menu.html :: burger-menu}">
+
     </div>
 </header>
 </body>
