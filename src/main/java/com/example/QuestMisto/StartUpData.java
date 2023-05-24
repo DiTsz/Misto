@@ -46,7 +46,7 @@ public class StartUpData implements CommandLineRunner {
         exampleRatings();
         exampleCompletedQuests();
         exampleFeaturedQuests();
-        test();
+        //test();
     }
 
     private void exampleAvatars() {

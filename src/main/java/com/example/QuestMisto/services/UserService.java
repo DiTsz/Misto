@@ -4,6 +4,7 @@ import com.example.QuestMisto.interfaces.RepositoryService;
 import com.example.QuestMisto.models.User;
 import com.example.QuestMisto.models.enums.AuthProvider;
 import com.example.QuestMisto.models.enums.Role;
+import com.example.QuestMisto.models.enums.Status;
 import com.example.QuestMisto.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -61,7 +62,6 @@ public class UserService implements RepositoryService<User> {
             entity.setUserAvatar(userAvatarService.getByName("Default avatar"));
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
             userRepository.save(entity);
-
         } else {
             userRepository.save(entity);
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
@@ -111,7 +111,7 @@ public class UserService implements RepositoryService<User> {
         }
     }
 
-    public void createUserAfterOAuth2Login(String email, String name, AuthProvider authProvider) {
+   /* public void createUserAfterOAuth2Login(String email, String name, AuthProvider authProvider) {
         User user = new User();
         user.setUsername(name);
         user.setEmail(email);
@@ -125,7 +125,23 @@ public class UserService implements RepositoryService<User> {
         user.setAuthProvider(authProvider);
         user.setRole(Role.USER);
         userRepository.save(user);
-    }
+    }*/
+   public void processOAuthPostLogin(String username,String email,String oauth2ClientName) {
+       User existUser = userRepository.findByUsername(username).orElse(null);
+
+       if (existUser == null) {
+           User newUser = new User();
+           newUser.setUsername(username);
+           newUser.setEmail(email);
+           newUser.setRole(Role.USER);
+           newUser.setAuthProvider(AuthProvider.GOOGLE);
+           newUser.setStatus(Status.ACTIVE);
+           newUser.setUserAvatar(userAvatarService.getByName("default avatar"));
+           userRepository.save(newUser);
+       }
+       AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+       userRepository.updateAuthenticationType(email, authType);
+   }
     public void updateAuthenticationType(String email, String oauth2ClientName) {
         AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
         userRepository.updateAuthenticationType(email, authType);
