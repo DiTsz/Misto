@@ -46,7 +46,7 @@ public class StartUpData implements CommandLineRunner {
         exampleRatings();
         exampleCompletedQuests();
         exampleFeaturedQuests();
-        //test();
+        test();
     }
 
     private void exampleAvatars() {
@@ -249,10 +249,13 @@ public class StartUpData implements CommandLineRunner {
         CompletedQuests completedQuests = new CompletedQuests(user, quest1);
         CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
         CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
+        CompletedQuests completedQuests4 = new CompletedQuests(user, quest6);
 
         completedQuestsService.save(completedQuests);
         completedQuestsService.save(completedQuests2);
         completedQuestsService.save(completedQuests3);
+        completedQuestsService.save(completedQuests4);
+
 
     }
 
@@ -276,7 +279,8 @@ public class StartUpData implements CommandLineRunner {
         //System.out.println(questService.getFirst5OrderByRatings());
         //System.out.println(userService.getAll());
         //System.out.println(questService.getAll());
-        //System.out.println(completedQuestsService.getAll());
+        User user = userService.getByName("user");
+        System.out.println(completedQuestsService.getAllByUser(user));
 
     }
 

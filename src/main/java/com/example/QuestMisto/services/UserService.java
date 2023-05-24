@@ -99,15 +99,15 @@ public class UserService implements RepositoryService<User> {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public void login(String username, String password) {
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+    public void login(String email, String password) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
         authenticationManager.authenticate(token);
 
         if (token.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(token);
         } else {
-            System.out.println("Error with authentication" + username);
+            System.out.println("Error with authentication" + email);
         }
     }
 
@@ -125,5 +125,9 @@ public class UserService implements RepositoryService<User> {
         user.setAuthProvider(authProvider);
         user.setRole(Role.USER);
         userRepository.save(user);
+    }
+    public void updateAuthenticationType(String email, String oauth2ClientName) {
+        AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+        userRepository.updateAuthenticationType(email, authType);
     }
 }

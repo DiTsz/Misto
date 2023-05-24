@@ -7,11 +7,16 @@ import java.util.Collection;
 import java.util.Map;
 
 public class CustomOAuth2User implements OAuth2User {
-
     private final OAuth2User oAuth2User;
+    private String oauth2ClientName;
 
     public CustomOAuth2User(OAuth2User oAuth2User) {
         this.oAuth2User = oAuth2User;
+    }
+
+    public CustomOAuth2User(OAuth2User oAuth2User, String oauth2ClientName) {
+        this.oAuth2User = oAuth2User;
+        this.oauth2ClientName = oauth2ClientName;
     }
 
     @Override
@@ -32,4 +37,8 @@ public class CustomOAuth2User implements OAuth2User {
     public String getEmail(){
         return oAuth2User.getAttribute("email");
     }
+    public String getOauth2ClientName() {
+        return oauth2ClientName;
+    }
+
 }

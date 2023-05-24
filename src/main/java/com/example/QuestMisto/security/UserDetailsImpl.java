@@ -11,16 +11,16 @@ import java.util.List;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private String username;
+    private String email;
     private String password;
     private boolean isActive;
     private List<SimpleGrantedAuthority> authorities;
 
-    public UserDetailsImpl(String username,
+    public UserDetailsImpl(String email,
                            String password,
                            boolean isActive,
                            List<SimpleGrantedAuthority> authorities) {
-        this.username = username;
+        this.email = email;
         this.password = password;
         this.isActive = isActive;
         this.authorities = authorities;
@@ -38,7 +38,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public static UserDetails fromUser(com.example.QuestMisto.models.User user) {
         return new User(
-                user.getUsername(),
+                user.getEmail(),
                 user.getPassword(),
                 user.getStatus().equals(Status.ACTIVE),
                 user.getStatus().equals(Status.ACTIVE),

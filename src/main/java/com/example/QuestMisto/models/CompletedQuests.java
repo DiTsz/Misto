@@ -19,11 +19,11 @@ public class CompletedQuests {
     private UUID Id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user")
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="quest_id")
+    @JoinColumn(name="quest")
     private Quest quest;
     public CompletedQuests() {
     }
@@ -44,7 +44,7 @@ public class CompletedQuests {
     @Override
     public String toString() {
         return "CompletedQuests{" +
-                "user=" + user +
+                "user=" + user.getEmail() +
                 ", quest="+ quest.getName() +
                 '}';
     }

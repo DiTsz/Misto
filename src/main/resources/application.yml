@@ -41,6 +41,12 @@
                 scope:
                  - email
                  - profile
+              facebook:
+                client-id: 1385421355335583
+                client-secret: e3dade0c0d3583521b91abbfc7324efd
+                scope:
+                  - email
+                  - public_profile
   logging:
        level:
           org:
