@@ -1,7 +1,7 @@
 package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
-import com.example.QuestMisto.models.City;
+import com.example.QuestMisto.models.entities.City;
 import com.example.QuestMisto.models.enums.CityName;
 import com.example.QuestMisto.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;

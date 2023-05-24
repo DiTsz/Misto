@@ -1,9 +1,9 @@
 package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
-import com.example.QuestMisto.models.FeaturedQuests;
-import com.example.QuestMisto.models.Quest;
-import com.example.QuestMisto.models.User;
+import com.example.QuestMisto.models.entities.FeaturedQuests;
+import com.example.QuestMisto.models.entities.Quest;
+import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.repositories.FeaturedQuestsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

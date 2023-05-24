@@ -1,4 +1,4 @@
-package com.example.QuestMisto.models;
+package com.example.QuestMisto.models.entities;
 
 
 import org.hibernate.annotations.GenericGenerator;

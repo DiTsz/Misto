@@ -1,4 +1,4 @@
-package com.example.QuestMisto.models;
+package com.example.QuestMisto.models.entities;
 
 import com.example.QuestMisto.models.enums.AuthProvider;
 import com.example.QuestMisto.models.enums.Role;

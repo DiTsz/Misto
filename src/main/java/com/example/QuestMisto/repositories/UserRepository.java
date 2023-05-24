@@ -1,6 +1,7 @@
 package com.example.QuestMisto.repositories;
 
-import com.example.QuestMisto.models.User;
+
+import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.models.enums.AuthProvider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

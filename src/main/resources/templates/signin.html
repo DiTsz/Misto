@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Реєстрація</title>
+</head>
+<body>
+<div th:replace="~{fragments/header.html :: light-header}"></div>
+<div class="content">
+    <div class="input-form-container">
+        <form class="input-form" method="post">
+            <h1 class="form-title">Реєстрація</h1>
+            <div class="name-input">
+                <input name="name" placeholder="І`мя" type="text" required>
+                <input name="surname" placeholder="Прізвище" type="text" required>
+            </div>
+            <input name="email" placeholder="E-mail" type="email" required>
+            <input name="password" placeholder="Password" type="password" minlength="8" required>
+            <button class="btn">Зареєструватися</button>
+            <a class="subdo" th:href="@{/login}">Увійти</a>
+        </form>
+    </div>
+</div>
+<script th:src="@{js/script.js}"></script>
+</body>
+</html>

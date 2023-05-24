@@ -1,14 +1,12 @@
 package com.example.QuestMisto;
 
-import com.example.QuestMisto.models.*;
+import com.example.QuestMisto.models.entities.*;
 import com.example.QuestMisto.models.enums.*;
 import com.example.QuestMisto.services.*;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @Log4j2
@@ -38,7 +36,7 @@ public class StartUpData implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         exampleAvatars();
         exampleUsers();
         exampleCities();

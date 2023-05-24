@@ -1,7 +1,7 @@
 package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
-import com.example.QuestMisto.models.UserAvatar;
+import com.example.QuestMisto.models.entities.UserAvatar;
 import com.example.QuestMisto.repositories.UserAvatarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

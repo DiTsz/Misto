@@ -1,7 +1,7 @@
 package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
-import com.example.QuestMisto.models.User;
+import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.models.enums.AuthProvider;
 import com.example.QuestMisto.models.enums.Role;
 import com.example.QuestMisto.models.enums.Status;

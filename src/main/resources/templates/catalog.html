@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        *{
+            color: black;
+        }
+    </style>
+    <title>Misto</title>
+</head>
+<body>
+<div th:replace="~{fragments/header.html :: light-header}"></div>
+<div class="city">
+    <img src="/images/Kharkiv.png"/>
+    <div class="city-info">
+        <h2 class="quest-name" th:text="*{name}"></h2>
+        <p class="quest-description" th:text="*{description}"></p>
+    </div>
+</div>
+<div class="categories">
+    <div class="category">
+        Категорія 1
+    </div>
+    <div class="category">
+        Категорія 2
+    </div>
+    <div class="category">
+        Категорія 3
+    </div>
+    <div class="category">
+        Категорія 4
+    </div>
+</div>
+<div class="quest-container">
+    <div class="catalog-quest" th:each="quest : ${quests}" th:object="${quest}">
+        <div class="quest-info">
+            <h2 class="quest-name" th:text="*{name}"></h2>
+            <p class="quest-description" th:text="*{description}"></p>
+            <div class="quest_characteristics column">
+                <div class="quest_characteristic">
+                    <img class="category-img" src="logos/category.svg"/>
+                    <div class="quest-characteristic-info">
+                        <p class="info-title">Тип</p>
+                        <p class="info-value" th:text="*{questType}"></p>
+                    </div>
+                </div>
+                <div class="quest_characteristic">
+                    <img class="category-img" src="logos/puzzle.svg"/>
+                    <div class="quest-characteristic-info">
+                        <p class="info-title">Складність</p>
+                        <p class="info-value" th:text="*{difficulty}"></p>
+                    </div>
+                </div>
+                <div class="quest_characteristic">
+                    <img class="category-img" src="logos/questions.svg"/>
+                    <div class="quest-characteristic-info">
+                        <p class="info-title">Кількість завдань</p>
+                        <p class="info-value" th:text="*{numOfSteps}"></p>
+                    </div>
+                </div>
+                <div class="quest_characteristic">
+                    <img class="category-img" src="logos/distance.svg"/>
+                    <div class="quest-characteristic-info">
+                        <p class="info-title">Відстань</p>
+                        <p class="info-value" th:text="|*{distance} км|"></p>
+                    </div>
+                </div>
+                <div class="quest_characteristic">
+                    <img class="category-img" src="logos/timer.svg"/>
+                    <div class="quest-characteristic-info">
+                        <p class="info-title">Тривалість</p>
+                        <p class="info-value" th:text="|*{minDuration} - *{maxDuration} хв|"></p>
+                    </div>
+                </div>
+            </div>
+            <div class=quest-card-links>
+                <a class="quest-start" href="#">Розпочати</a>
+                <a class="more-info" href="#">Детальніше&nbsp;
+                    <img src="logos/dark_arrow.svg"/>
+                </a>
+            </div>
+        </div>
+        <img src="images/pic.png">
+    </div>
+</div>
+<script th:src="@{js/script.js}"></script>
+</body>
+</html>

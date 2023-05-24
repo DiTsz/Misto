@@ -2,7 +2,7 @@ package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.comparators.RatingComparator;
 import com.example.QuestMisto.interfaces.RepositoryService;
-import com.example.QuestMisto.models.Quest;
+import com.example.QuestMisto.models.entities.Quest;
 import com.example.QuestMisto.models.enums.CityName;
 import com.example.QuestMisto.repositories.QuestRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,19 +1,14 @@
-package com.example.QuestMisto.models;
+package com.example.QuestMisto.models.entities;
 
 import com.example.QuestMisto.models.enums.Difficulty;
 import com.example.QuestMisto.models.enums.QuestType;
 import com.example.QuestMisto.models.enums.TypeReward;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -48,7 +43,7 @@ public class Quest {
     private String reward;
 
     @Column(name = "picture_url", nullable = false, columnDefinition = "TEXT")
-    private String picture_url;
+    private String pictureUrl;
 
     @Column(name = "num_of_steps", nullable = false)
     private Integer numOfSteps;
@@ -85,7 +80,7 @@ public class Quest {
                  TypeReward typeReward,
                  QuestType questType,
                  String reward,
-                 String picture_url,
+                 String pictureUrl,
                  Integer numOfSteps,
                  Float distance,
                  Integer minDuration,
@@ -97,7 +92,7 @@ public class Quest {
         this.typeReward = typeReward;
         this.questType = questType;
         this.reward = reward;
-        this.picture_url = picture_url;
+        this.pictureUrl = pictureUrl;
         this.numOfSteps = numOfSteps;
         this.distance = distance;
         this.minDuration = minDuration;
@@ -166,12 +161,12 @@ public class Quest {
         this.reward = reward;
     }
 
-    public String getPicture_url() {
-        return picture_url;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
 
-    public void setPicture_url(String picture_url) {
-        this.picture_url = picture_url;
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     public Integer getNumOfSteps() {
@@ -247,7 +242,7 @@ public class Quest {
                 ", typeReward= " + typeReward.name() +
                 ", questType= " + questType.name() +
                 ", reward=' " + reward + '\'' +
-                ", picture_url='" + picture_url + '\'' +
+                ", picture_url='" + pictureUrl + '\'' +
                 ", numOfSteps= " + numOfSteps +
                 ", distance= " + distance +
                 ", minDuration= " + minDuration +

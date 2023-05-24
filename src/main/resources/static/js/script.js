@@ -1,33 +1,60 @@
-// const p = 50;
-// var lastYOffset = 0;
-// var countOfQuests = getCountOfQuests();
-// var currentQuest = 0;
-// var boxes = document.querySelectorAll('.quest');
+var burgerMenu = document.querySelector(".burger-menu");
+var burgerBtn = document.querySelector(".burger-menu-btn");
 
-// window.addEventListener('scroll', function() {
-//   dif = pageYOffset - lastYOffset;
-//   if(dif < -p || dif > p){
-//     if(dif > p){
-//       currentQuest++;
-//     } else {
-//       currentQuest--;
-//     }
-//     checkQuest();
-//     let box = boxes[currentQuest];
-//     box.scrollIntoView();
-//           lastYOffset = pageYOffset;
-//   }
-// });
+burgerBtn.addEventListener("click", function() {
+  burgerMenu.classList.toggle("open");
+});
 
-// function getCountOfQuests(){
-//   return document.querySelectorAll('.quest').length;
-// }
+document.addEventListener("click", function(event) {
+  var target = event.target;
 
-// function checkQuest(){
-//   if(currentQuest > countOfQuests){
-//     currentQuest = countOfQuests - 1;
-//   }else if(currentQuest < 0){
-//     currentQuest = 0;
-//   }
+  if (!burgerMenu.contains(target) && !burgerBtn.contains(target)) {
+    burgerMenu.classList.remove("open");
+  }
+});
 
-// }
+
+
+
+window.addEventListener('wheel', function(event) {
+  if (event.deltaY > 0) {
+    scrollToNextSection();
+  } else if (event.deltaY < 0) {
+    scrollToPreviousSection();
+  }
+});
+
+function scrollToNextSection() {
+  var currentSection = getCurrentSection();
+  var nextSection = currentSection.nextElementSibling;
+
+  if (nextSection !== null) {
+    nextSection.scrollIntoView();
+    window.scrollBy(0, -100);
+  }
+}
+
+function scrollToPreviousSection() {
+  var currentSection = getCurrentSection();
+  var previousSection = currentSection.previousElementSibling;
+
+  if (previousSection !== null) {
+    previousSection.scrollIntoView();
+    window.scrollBy(0, 100);
+  }
+}
+
+function getCurrentSection() {
+  var sections = document.querySelectorAll('.quest');
+  var currentSection = null;
+
+  sections.forEach(function(section) {
+    var rect = section.getBoundingClientRect();
+
+    if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+      currentSection = section;
+    }
+  });
+
+  return currentSection;
+}
