@@ -14,6 +14,7 @@ public interface QuestRepository extends JpaRepository<Quest, UUID> {
     List<Quest> findAll();
     Optional<Quest> findById(UUID Id);
     Quest findByName(String name);
-    @Query(value = "SELECT rating.quest_id from rating group by rating.quest_id order by AVG(rating) desc limit 5",nativeQuery = true)
+    @Query(value = "SELECT rating.quest_id from rating group by rating.quest_id order by AVG(rating) desc limit 5"
+            ,nativeQuery = true)
     List<UUID> findFirst5IdsOrderByRating();
 }

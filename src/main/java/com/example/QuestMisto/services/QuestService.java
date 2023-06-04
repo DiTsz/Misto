@@ -15,7 +15,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class QuestService implements RepositoryService<Quest> {
 
     private final QuestRepository questRepository;
@@ -33,7 +32,6 @@ public class QuestService implements RepositoryService<Quest> {
         return questRepository.findAll().stream().sorted(ratingComparator).collect(Collectors.toList());
 
     }
-
     @Override
     public Quest getById(UUID id) {
         return questRepository.findById(id).orElse(null);

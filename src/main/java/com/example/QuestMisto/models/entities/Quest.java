@@ -62,7 +62,7 @@ public class Quest {
     private City city;
 
 
-    @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "quest", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)

@@ -23,6 +23,10 @@ public class User {
 
     @Column(name = "username", columnDefinition = "VARCHAR(100)", nullable = false,unique = true)
     private String username;
+    @Column(name = "name", columnDefinition = "VARCHAR(100)")
+    private String name;
+    @Column(name = "last_name", columnDefinition = "VARCHAR(100)")
+    private String lastName;
 
     @Column(name = "password", columnDefinition = "VARCHAR(255)",unique = true)
     private String password;
@@ -184,7 +188,7 @@ public class User {
         return "User{" +
                 "username='" + username + '\'' +
                 ", email='" + email + '\'' +
-                /*", ratings=" + ratings +*/
+                ", ratings=" + ratings +
                 '}';
     }
 }
