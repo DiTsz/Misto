@@ -66,6 +66,9 @@ public class Quest {
     private List<Rating> ratings = new ArrayList<>();
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
+    private List<QuestTask> questTasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
     private List<FeaturedQuests> feachQuests = new ArrayList<>();
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.MERGE)
