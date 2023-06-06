@@ -60,7 +60,7 @@ public class UserService implements RepositoryService<User> {
 
     @Override
     public void save(User entity) {
-        User user = userRepository.findById(entity.getId()).orElse(null);
+        User user = userRepository.findByUsername(entity.getUsername()).orElse(null);
         if (user == null) {
             entity.setUserAvatar(userAvatarService.getByName("Default avatar"));
             entity.setRang(rangService.getByName("Newbie"));
@@ -90,7 +90,6 @@ public class UserService implements RepositoryService<User> {
         user.setId(entity.getId());
         user.setUsername(entity.getUsername());
         user.setEmail(entity.getEmail());
-        user.setNumOfXp(entity.getNumOfXp());
         user.setUserAvatar(entity.getUserAvatar());
         user.setStatus(entity.getStatus());
         user.setRole(entity.getRole());

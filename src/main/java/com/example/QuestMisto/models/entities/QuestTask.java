@@ -35,13 +35,18 @@ public class QuestTask {
     @Column(name = "quest_task_type")
     private QuestTaskType questTaskType;
 
+    @Column(columnDefinition = "TEXT")
+    private String hint;
+
     public QuestTask() {
     }
 
-    public QuestTask(String taskCondition, List<String> answers, Quest quest) {
+    public QuestTask(String taskCondition, List<String> answers, Quest quest,QuestTaskType questTaskType, String hint) {
         this.taskCondition = taskCondition;
         this.answers = answers;
         this.quest = quest;
+        this.questTaskType=questTaskType;
+        this.hint=hint;
     }
 
     public String getTaskCondition() {
@@ -60,9 +65,6 @@ public class QuestTask {
         Id = id;
     }
 
-
-
-
     public List<String> getAnswers() {
         return answers;
     }
@@ -77,5 +79,21 @@ public class QuestTask {
 
     public void setQuest(Quest quest) {
         this.quest = quest;
+    }
+
+    public QuestTaskType getQuestTaskType() {
+        return questTaskType;
+    }
+
+    public void setQuestTaskType(QuestTaskType questTaskType) {
+        this.questTaskType = questTaskType;
+    }
+
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 }
