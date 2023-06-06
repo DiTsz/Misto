@@ -21,6 +21,7 @@ public class StartUpData implements CommandLineRunner {
     private final CompletedQuestsService completedQuestsService;
     private final FeaturedQuestsService featuredQuestsService;
     private final QuestTaskService questTaskService;
+    private final RangService rangService;
 
     public StartUpData(CityService cityService,
                        QuestService questService,
@@ -29,7 +30,8 @@ public class StartUpData implements CommandLineRunner {
                        UserAvatarService userAvatarService,
                        CompletedQuestsService completedQuestsService,
                        FeaturedQuestsService featuredQuestsService,
-                       QuestTaskService questTaskService) {
+                       QuestTaskService questTaskService,
+                       RangService rangService) {
         this.cityService = cityService;
         this.questService = questService;
         this.ratingService = ratingService;
@@ -38,11 +40,13 @@ public class StartUpData implements CommandLineRunner {
         this.completedQuestsService = completedQuestsService;
         this.featuredQuestsService = featuredQuestsService;
         this.questTaskService = questTaskService;
+        this.rangService = rangService;
     }
 
     @Override
     public void run(String... args) {
         exampleAvatars();
+        exampleRangs();
         exampleUsers();
         exampleCities();
         exampleQuests();
@@ -65,15 +69,29 @@ public class StartUpData implements CommandLineRunner {
         userAvatarService.save(firstAvatar);
     }
 
+    public void exampleRangs() {
+        Rang firstRang = new Rang("Newbie", 0);
+        Rang explorerRang = new Rang("Explorer", 5);
+        rangService.save(firstRang);
+        rangService.save(explorerRang);
+
+    }
+
     private void exampleUsers() {
-        UserAvatar defaultAvatar = userAvatarService.getByName("Default avatar");
         UserAvatar firstAvatar = userAvatarService.getByName("First avatar");
-        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, defaultAvatar, Status.ACTIVE);
-        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, firstAvatar, Status.ACTIVE);
+        Rang explorerRang = rangService.getByName("Explorer");
+        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, Status.ACTIVE);
+        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, Status.ACTIVE);
+        User user2 = new User("user2", "user2", "user2expl@gmail.com", Role.USER, Status.ACTIVE);
        /* admin.setNumOfXp(100);
         admin.setUserAvatar(firstAvatar);*/
         userService.save(user);
+        userService.save(user2);
         userService.save(admin);
+        user2.setUserAvatar(firstAvatar);
+        user2.setRang(explorerRang);
+        userService.save(user2);
+
     }
 
     private void exampleCities() {
@@ -246,6 +264,7 @@ public class StartUpData implements CommandLineRunner {
 
     public void exampleCompletedQuests() {
         User user = userService.getByName("user");
+        User user2 = userService.getByName("user2");
         Quest quest1 = questService.getByName("Cymska quest1");
         Quest quest5 = questService.getByName("Cymska quest5");
         Quest quest6 = questService.getByName("Cymska quest6");
@@ -254,11 +273,16 @@ public class StartUpData implements CommandLineRunner {
         CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
         CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
         CompletedQuests completedQuests4 = new CompletedQuests(user, quest6);
-
+        CompletedQuests completedQuests5 = new CompletedQuests(user2, quest1);
+        CompletedQuests completedQuests6 = new CompletedQuests(user2, quest5);
+        CompletedQuests completedQuests7 = new CompletedQuests(user2, quest6);
         completedQuestsService.save(completedQuests);
         completedQuestsService.save(completedQuests2);
         completedQuestsService.save(completedQuests3);
         completedQuestsService.save(completedQuests4);
+        completedQuestsService.save(completedQuests5);
+        completedQuestsService.save(completedQuests6);
+        completedQuestsService.save(completedQuests7);
 
 
     }
@@ -270,30 +294,33 @@ public class StartUpData implements CommandLineRunner {
         Quest quest6 = questService.getByName("Cymska quest6");
         Quest quest8 = questService.getByName("Lviv quest");
 
-        featuredQuestsService.addInFeatured(user,quest1);
-        featuredQuestsService.addInFeatured(user,quest5);
-        featuredQuestsService.addInFeatured(user,quest6);
-        featuredQuestsService.addInFeatured(user,quest8);
-        featuredQuestsService.removeFromFeatured(user,quest6);
+        featuredQuestsService.addInFeatured(user, quest1);
+        featuredQuestsService.addInFeatured(user, quest5);
+        featuredQuestsService.addInFeatured(user, quest6);
+        featuredQuestsService.addInFeatured(user, quest8);
+        featuredQuestsService.removeFromFeatured(user, quest6);
 
     }
-public void exampleQuestTasks(){
-    Quest quest1 = questService.getByName("Cymska quest1");
-    QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2","two","Two"),quest1);
-    QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5","five","Five"),quest1);
-    QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk","Kravchuk","leonid kravchuk","kravchuk"),quest1);
-     questTaskService.save(questTask1);
-    questTaskService.save(questTask2);
-    questTaskService.save(questTask3);
 
-}
+    public void exampleQuestTasks() {
+        Quest quest1 = questService.getByName("Cymska quest1");
+        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1);
+        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1);
+        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1);
+        questTaskService.save(questTask1);
+        questTaskService.save(questTask2);
+        questTaskService.save(questTask3);
+
+    }
+
     public void test() {
         //System.out.println(questService.getByCityNameSortedByRating(CityName.KHARKIV));
         //System.out.println(questService.getFirst5OrderByRatings());
         //System.out.println(userService.getAll());
         //System.out.println(questService.getAll());
-        User user = userService.getByName("user");
-        System.out.println(completedQuestsService.getAllByUser(user));
+//        User user = userService.getByName("user");
+//        System.out.println(completedQuestsService.getAllByUser(user));
+//        System.out.println(completedQuestsService.countCompletedQuestsByUser(user));
 
     }
 

@@ -2,6 +2,7 @@ package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
 import com.example.QuestMisto.models.entities.CompletedQuests;
+import com.example.QuestMisto.models.entities.Quest;
 import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.repositories.CompletedQuestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,13 @@ public class CompletedQuestsService implements RepositoryService<CompletedQuests
 
     @Override
     public void save(CompletedQuests entity) {
-        completedQuestRepository.save(entity);
+        CompletedQuests completedQuests = completedQuestRepository.findByUserAndQuest(entity.getUser(), entity.getQuest());
+        if (completedQuests == null)
+            completedQuestRepository.save(entity);
+        else {
+            entity = completedQuests;
+            completedQuestRepository.save(entity);
+        }
     }
 
     @Override
@@ -52,5 +59,12 @@ public class CompletedQuestsService implements RepositoryService<CompletedQuests
 
     public List<CompletedQuests> getAllByUser(User user) {
         return completedQuestRepository.findAllByUser(user);
+    }
+
+    public CompletedQuests getAllByUserAndQuest(User user, Quest quest) {
+        return completedQuestRepository.findByUserAndQuest(user, quest);
+    }
+    public int countCompletedQuestsByUser(User user){
+        return completedQuestRepository.countByUser(user);
     }
 }
