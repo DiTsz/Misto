@@ -8,6 +8,8 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Log4j2
 public class StartUpData implements CommandLineRunner {
@@ -18,6 +20,7 @@ public class StartUpData implements CommandLineRunner {
     private final UserAvatarService userAvatarService;
     private final CompletedQuestsService completedQuestsService;
     private final FeaturedQuestsService featuredQuestsService;
+    private final QuestTaskService questTaskService;
 
     public StartUpData(CityService cityService,
                        QuestService questService,
@@ -25,7 +28,8 @@ public class StartUpData implements CommandLineRunner {
                        UserService userService,
                        UserAvatarService userAvatarService,
                        CompletedQuestsService completedQuestsService,
-                       FeaturedQuestsService featuredQuestsService) {
+                       FeaturedQuestsService featuredQuestsService,
+                       QuestTaskService questTaskService) {
         this.cityService = cityService;
         this.questService = questService;
         this.ratingService = ratingService;
@@ -33,6 +37,7 @@ public class StartUpData implements CommandLineRunner {
         this.userAvatarService = userAvatarService;
         this.completedQuestsService = completedQuestsService;
         this.featuredQuestsService = featuredQuestsService;
+        this.questTaskService = questTaskService;
     }
 
     @Override
@@ -44,6 +49,7 @@ public class StartUpData implements CommandLineRunner {
         exampleRatings();
         exampleCompletedQuests();
         exampleFeaturedQuests();
+        exampleQuestTasks();
         //test();
     }
 
@@ -271,7 +277,16 @@ public class StartUpData implements CommandLineRunner {
         featuredQuestsService.removeFromFeatured(user,quest6);
 
     }
+public void exampleQuestTasks(){
+    Quest quest1 = questService.getByName("Cymska quest1");
+    QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2","two","Two"),quest1);
+    QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5","five","Five"),quest1);
+    QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk","Kravchuk","leonid kravchuk","kravchuk"),quest1);
+     questTaskService.save(questTask1);
+    questTaskService.save(questTask2);
+    questTaskService.save(questTask3);
 
+}
     public void test() {
         //System.out.println(questService.getByCityNameSortedByRating(CityName.KHARKIV));
         //System.out.println(questService.getFirst5OrderByRatings());
