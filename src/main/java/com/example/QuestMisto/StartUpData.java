@@ -304,9 +304,9 @@ public class StartUpData implements CommandLineRunner {
 
     public void exampleQuestTasks() {
         Quest quest1 = questService.getByName("Cymska quest1");
-        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1);
-        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1);
-        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1);
+        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1,QuestTaskType.MYSTERY,"You need to calculate expression 1+1");
+        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1,QuestTaskType.MYSTERY,"You need to find how many mainlands on Earth");
+        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1,QuestTaskType.MYSTERY,"A surname of this politician is Kravchuk");
         questTaskService.save(questTask1);
         questTaskService.save(questTask2);
         questTaskService.save(questTask3);
