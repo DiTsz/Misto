@@ -39,6 +39,14 @@ public class CompletedQuests {
         this.user = user;
     }
 
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        this.quest = quest;
+    }
+
     @Override
     public String toString() {
         return "CompletedQuests{" +

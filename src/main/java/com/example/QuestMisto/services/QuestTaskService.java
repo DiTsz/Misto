@@ -1,6 +1,7 @@
 package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
+import com.example.QuestMisto.models.entities.Quest;
 import com.example.QuestMisto.models.entities.QuestTask;
 import com.example.QuestMisto.repositories.QuestTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,8 @@ public class QuestTaskService implements RepositoryService<QuestTask> {
     @Override
     public QuestTask edit(QuestTask entity) {
         return null;
+    }
+    public List<QuestTask> getAllByQuest(Quest quest){
+        return questTaskRepository.findAllByQuest(quest);
     }
 }

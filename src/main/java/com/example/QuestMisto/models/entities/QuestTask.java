@@ -1,5 +1,6 @@
 package com.example.QuestMisto.models.entities;
 
+import com.example.QuestMisto.models.enums.QuestTaskType;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -29,6 +30,10 @@ public class QuestTask {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "quest",nullable = false)
     private Quest quest;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "quest_task_type")
+    private QuestTaskType questTaskType;
 
     public QuestTask() {
     }

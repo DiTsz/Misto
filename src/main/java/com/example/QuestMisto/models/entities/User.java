@@ -5,7 +5,6 @@ import com.example.QuestMisto.models.enums.Role;
 import com.example.QuestMisto.models.enums.Status;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,6 @@ public class User {
     @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false,unique = true)
     private String email;
 
-    @Column(name = "num_of_xp")
-    private Integer numOfXp;
-
     @Column (name = "role", nullable = false)
     private Role role;
 
@@ -47,6 +43,9 @@ public class User {
     @Column(name ="auth_provider")
     @Enumerated(EnumType.ORDINAL)
     private AuthProvider authProvider;
+
+    @Column(name = "gem_balance")
+    private int gemBalance;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
     private List<Rating> ratings = new ArrayList<>();
@@ -59,8 +58,12 @@ public class User {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "avatar_id")
     private UserAvatar userAvatar;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rang_id")
+    private Rang rang;
     public User() {
-        this.numOfXp=0;
+        this.gemBalance=0;
     }
 
     public User(String username, String password, String email, Role role) {
@@ -68,23 +71,21 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = role;
-        this.numOfXp=0;
     }
 
     public User(String username,
                 String password,
                 String email,
                 Role role,
-                UserAvatar userAvatar,
                 Status status) {
 
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
-        this.userAvatar = userAvatar;
         this.status=status;
-        this.numOfXp=0;
+        this.gemBalance=0;
+
     }
 
     public UUID getId() {
@@ -117,14 +118,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Integer getNumOfXp() {
-        return numOfXp;
-    }
-
-    public void setNumOfXp(Integer numOfXp) {
-        this.numOfXp = numOfXp;
     }
 
     public Role getRole() {
@@ -181,6 +174,38 @@ public class User {
 
     public void setCompletedQuest(List<CompletedQuests> completedQuest) {
         this.completedQuest = completedQuest;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getGemBalance() {
+        return gemBalance;
+    }
+
+    public void setGemBalance(int gemBalance) {
+        this.gemBalance = gemBalance;
+    }
+
+    public Rang getRang() {
+        return rang;
+    }
+
+    public void setRang(Rang rang) {
+        this.rang = rang;
     }
 
     @Override

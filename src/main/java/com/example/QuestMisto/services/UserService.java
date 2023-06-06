@@ -26,18 +26,21 @@ public class UserService implements RepositoryService<User> {
     private final UserDetailsService userDetailsService;
     private final AuthenticationManager authenticationManager;
     private final UserAvatarService userAvatarService;
+    private final RangService rangService;
 
     @Autowired
     public UserService(UserRepository userRepository,
                        BCryptPasswordEncoder bCryptPasswordEncoder,
                        UserDetailsService userDetailsService,
                        AuthenticationManager authenticationManager,
-                       UserAvatarService userAvatarService) {
+                       UserAvatarService userAvatarService,
+                       RangService rangService) {
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
         this.userAvatarService = userAvatarService;
+        this.rangService = rangService;
     }
 
     @Override
@@ -57,16 +60,15 @@ public class UserService implements RepositoryService<User> {
 
     @Override
     public void save(User entity) {
-
-        if (entity.getUserAvatar() == null || entity.getNumOfXp() < entity.getUserAvatar().getRequiredXp()) {
+        User user = userRepository.findById(entity.getId()).orElse(null);
+        if (user == null) {
             entity.setUserAvatar(userAvatarService.getByName("Default avatar"));
-            entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
-            userRepository.save(entity);
-        } else {
-            userRepository.save(entity);
+            entity.setRang(rangService.getByName("Newbie"));
             entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
             userRepository.save(entity);
         }
+        userRepository.save(entity);
+
     }
 
     @Override
@@ -76,7 +78,8 @@ public class UserService implements RepositoryService<User> {
 
     @Override
     public User edit(User entity) {
-        return null;
+        userRepository.findByUsername(entity.getUsername()).ifPresent(user -> userRepository.save(entity));
+        return entity;
     }
 
     public User editWithPassword(User entity, String oldPassword, String newPassword) {
@@ -92,6 +95,7 @@ public class UserService implements RepositoryService<User> {
         user.setStatus(entity.getStatus());
         user.setRole(entity.getRole());
         user.setRatings(entity.getRatings());
+        userRepository.save(user);
         return user;
     }
 
@@ -111,37 +115,38 @@ public class UserService implements RepositoryService<User> {
         }
     }
 
-   /* public void createUserAfterOAuth2Login(String email, String name, AuthProvider authProvider) {
-        User user = new User();
-        user.setUsername(name);
-        user.setEmail(email);
-        user.setAuthProvider(authProvider);
-        user.setRole(Role.USER);
-        userRepository.save(user);
+    /* public void createUserAfterOAuth2Login(String email, String name, AuthProvider authProvider) {
+         User user = new User();
+         user.setUsername(name);
+         user.setEmail(email);
+         user.setAuthProvider(authProvider);
+         user.setRole(Role.USER);
+         userRepository.save(user);
+     }
+
+     public void updateUserAfterOAuth2Login(User user, String name, AuthProvider authProvider) {
+         user.setUsername(name);
+         user.setAuthProvider(authProvider);
+         user.setRole(Role.USER);
+         userRepository.save(user);
+     }*/
+    public void processOAuthPostLogin(String username, String email, String oauth2ClientName) {
+        User existUser = userRepository.findByUsername(username).orElse(null);
+
+        if (existUser == null) {
+            User newUser = new User();
+            newUser.setUsername(username);
+            newUser.setEmail(email);
+            newUser.setRole(Role.USER);
+            newUser.setAuthProvider(AuthProvider.GOOGLE);
+            newUser.setStatus(Status.ACTIVE);
+            newUser.setUserAvatar(userAvatarService.getByName("default avatar"));
+            userRepository.save(newUser);
+        }
+        AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
+        userRepository.updateAuthenticationType(email, authType);
     }
 
-    public void updateUserAfterOAuth2Login(User user, String name, AuthProvider authProvider) {
-        user.setUsername(name);
-        user.setAuthProvider(authProvider);
-        user.setRole(Role.USER);
-        userRepository.save(user);
-    }*/
-   public void processOAuthPostLogin(String username,String email,String oauth2ClientName) {
-       User existUser = userRepository.findByUsername(username).orElse(null);
-
-       if (existUser == null) {
-           User newUser = new User();
-           newUser.setUsername(username);
-           newUser.setEmail(email);
-           newUser.setRole(Role.USER);
-           newUser.setAuthProvider(AuthProvider.GOOGLE);
-           newUser.setStatus(Status.ACTIVE);
-           newUser.setUserAvatar(userAvatarService.getByName("default avatar"));
-           userRepository.save(newUser);
-       }
-       AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
-       userRepository.updateAuthenticationType(email, authType);
-   }
     public void updateAuthenticationType(String email, String oauth2ClientName) {
         AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
         userRepository.updateAuthenticationType(email, authType);
