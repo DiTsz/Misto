@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 class MainControllerTest {
@@ -33,18 +33,94 @@ class MainControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
+    // проверка регистрации
     @Test
-    void signin() throws Exception {
+    void signinTrue() throws Exception {
         String name = "John";
         String surname = "Doe";
         String email = "john.doe@example.com";
         String password = "password";
 
         mockMvc.perform(post("/signin")
-                .param("name", name)
-                .param("surname", surname)
-                .param("email", email)
-                .param("password", password))
-                .andExpect(status().is3xxRedirection());
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+        //.andExpect(redirectedUrl("/main")); -- перенапровление на главную
+    }
+
+    @Test
+        // нервалиьные данные
+    void signinFalse() throws Exception {
+        String name = "John";
+        String surname = "Doe";
+        String email = "invalid_email";
+        String password = "";
+
+        mockMvc.perform(post("/signin")
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/signin"));
+    }
+
+    // проверка на дубликат
+    @Test
+    void signinDuplicate() throws Exception {
+        String name = "John";
+        String surname = "Doe";
+        String email = "john.doe@example.com";
+        String password = "password";
+
+        // первая регистрация
+        mockMvc.perform(post("/signin")
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/"));
+        //.andExpect(redirectedUrl("/main")); -- перенапровление на главную
+
+        // повтор регистрации дубликат
+        mockMvc.perform(post("/signin")
+                        .param("name", name)
+                        .param("surname", surname)
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/signin"));
+    }
+
+    // проверка метода login
+    @Test
+    void loginTrue() throws Exception {
+        String email = "test@example.com";
+        String password = "password";
+
+        mockMvc.perform(post("/login")
+                        .param("email",email)
+                        .param("password",password))
+                .andExpect(status().is2xxSuccessful())
+        //.andExpect(redirectedUrl("/")) или .andExpect(redirectedUrl("/main")); -- перенапровление на главную
+        ;
+    }
+
+    //проверка метода login на неправельные данные
+    @Test
+    void loginFalse() throws Exception {
+        String email = "invalid_email";
+        String password = " ";
+
+        mockMvc.perform(post("/login")
+                        .param("email", email)
+                        .param("password", password))
+                .andExpect(status().is2xxSuccessful())
+        //.andExpect(redirectedUrl("/")) или .andExpect(redirectedUrl("/main")); -- перенапровление на главную
+        ;
     }
 }
