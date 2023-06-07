@@ -27,7 +27,7 @@ public class User {
     @Column(name = "last_name", columnDefinition = "VARCHAR(100)")
     private String lastName;
 
-    @Column(name = "password", columnDefinition = "VARCHAR(255)",unique = true)
+    @Column(name = "password", columnDefinition = "VARCHAR(255)")
     private String password;
 
     @Column(name = "email", columnDefinition = "VARCHAR(50)", nullable = false,unique = true)
@@ -36,7 +36,7 @@ public class User {
     @Column (name = "role", nullable = false)
     private Role role;
 
-    @Column(name = "status")
+    @Column(name = "status",nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private Status status;
 
@@ -44,7 +44,7 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     private AuthProvider authProvider;
 
-    @Column(name = "gem_balance")
+    @Column(name = "gem_balance",nullable = false)
     private int gemBalance;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE)
@@ -56,11 +56,11 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
     private List<CompletedQuests> completedQuest = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "avatar_id")
+    @JoinColumn(name = "avatar_id",nullable = false)
     private UserAvatar userAvatar;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rang_id")
+    @JoinColumn(name = "rang_id",nullable = false)
     private Rang rang;
     public User() {
         this.gemBalance=0;
@@ -71,20 +71,23 @@ public class User {
         this.password = password;
         this.email = email;
         this.role = role;
+        this.gemBalance=0;
+        this.status=Status.ACTIVE;
     }
 
     public User(String username,
+                String name,
+                String lastName,
                 String password,
-                String email,
-                Role role,
-                Status status) {
-
+                String email) {
         this.username = username;
+        this.name = name;
+        this.lastName = lastName;
         this.password = password;
         this.email = email;
-        this.role = role;
-        this.status=status;
         this.gemBalance=0;
+        this.status=Status.ACTIVE;
+        this.role=Role.USER;
 
     }
 

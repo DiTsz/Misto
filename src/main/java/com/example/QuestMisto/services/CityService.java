@@ -2,6 +2,7 @@ package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
 import com.example.QuestMisto.models.entities.City;
+import com.example.QuestMisto.models.entities.Quest;
 import com.example.QuestMisto.models.enums.CityName;
 import com.example.QuestMisto.repositories.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class CityService implements RepositoryService<City> {
     @Override
     public void save(City entity) {
         cityRepository.save(entity);
+
     }
 
     @Override
@@ -48,10 +50,20 @@ public class CityService implements RepositoryService<City> {
 
     @Override
     public City edit(City entity) {
+        City existCity = cityRepository.findByCityName(entity.getCityName()).orElse(null);
+        if (existCity != null) {
+            existCity.setCityName(entity.getCityName());
+            existCity.setPictureUrl(entity.getPictureUrl());
+            existCity.setDescription((entity.getDescription()));
+            existCity.setQuests(entity.getQuests());
+            cityRepository.save(existCity);
+            return existCity;
+        }
         return null;
+
     }
 
-    public City getByCityName(CityName cityName){
+    public City getByCityName(CityName cityName) {
         return cityRepository.findByCityName(cityName).orElse(null);
     }
 

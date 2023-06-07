@@ -1,7 +1,9 @@
 package com.example.QuestMisto.services;
 
 import com.example.QuestMisto.interfaces.RepositoryService;
+import com.example.QuestMisto.models.entities.Quest;
 import com.example.QuestMisto.models.entities.Rating;
+import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.repositories.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +38,13 @@ public class RatingService implements RepositoryService<Rating> {
 
     @Override
     public void save(Rating entity) {
-        ratingRepository.save(entity);
+        Rating rating = ratingRepository.findByUserAndQuest(entity.getUser(),entity.getQuest());
+        if(rating==null) {
+            ratingRepository.save(entity);
+        }else{
+            rating=entity;
+            ratingRepository.save(rating);
+        }
     }
 
     @Override
@@ -51,5 +59,8 @@ public class RatingService implements RepositoryService<Rating> {
 
     public List<Rating> getAllByRating(Integer rating){
         return ratingRepository.findAllByRating(rating);
+    }
+    public Rating getByUserAndQuest(User user, Quest quest){
+        return ratingRepository.findByUserAndQuest(user,quest);
     }
 }

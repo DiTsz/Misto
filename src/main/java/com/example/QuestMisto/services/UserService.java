@@ -140,6 +140,7 @@ public class UserService implements RepositoryService<User> {
             newUser.setAuthProvider(AuthProvider.GOOGLE);
             newUser.setStatus(Status.ACTIVE);
             newUser.setUserAvatar(userAvatarService.getByName("default avatar"));
+            newUser.setRang(rangService.getByName("Newbie"));
             userRepository.save(newUser);
         }
         AuthProvider authType = AuthProvider.valueOf(oauth2ClientName.toUpperCase());
