@@ -37,7 +37,13 @@ public class FeaturedQuestsService implements RepositoryService<FeaturedQuests> 
 
     @Override
     public void save(FeaturedQuests entity) {
-        featuredQuestsRepository.save(entity);
+        FeaturedQuests featuredQuests = featuredQuestsRepository.findByUserAndQuest(entity.getUser(), entity.getQuest());
+        if (featuredQuests == null) {
+            featuredQuestsRepository.save(entity);
+        }else{
+            entity=featuredQuests;
+            featuredQuestsRepository.save(entity);
+        }
     }
 
     @Override
@@ -57,6 +63,6 @@ public class FeaturedQuestsService implements RepositoryService<FeaturedQuests> 
 
     public void removeFromFeatured(User user, Quest quest) {
         FeaturedQuests featuredQuests = featuredQuestsRepository.findByUserAndQuest(user, quest);
-            featuredQuestsRepository.delete(featuredQuests);
+        featuredQuestsRepository.delete(featuredQuests);
     }
 }

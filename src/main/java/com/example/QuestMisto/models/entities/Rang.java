@@ -16,7 +16,7 @@ public class Rang {
     @Column(name = "rang_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
     private UUID Id;
-    @Column(nullable = false,columnDefinition = "VARCHAR(50)")
+    @Column(nullable = false,columnDefinition = "VARCHAR(50)",unique = true)
     private String name;
 
     @OneToMany(fetch = FetchType.EAGER,mappedBy = "rang", cascade = CascadeType.ALL)

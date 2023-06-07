@@ -17,11 +17,11 @@ public class Rating {
     private UUID Id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "quest_id",nullable = false)
+    @JoinColumn(name = "quest",nullable = false)
     private Quest quest;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id",nullable = false)
+    @JoinColumn(name = "user",nullable = false)
     private User user;
 
     @Column(name = "rating",nullable = false)

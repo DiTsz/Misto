@@ -64,7 +64,7 @@ public class StartUpData implements CommandLineRunner {
                 "freepik.com%2Ffree-icon%2Farcheologist_318-822403.jpg%3Fw%3D2000&tbnid=kNlNQlrXR4nBxM&vet=12ahUKEw" +
                 "jI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ..i&imgrefurl=https%3A%2F%2Fwww.freepik.com%2Ffree-photo" +
                 "s-vectors%2Favatar-hat%2F8&docid=cX-xIctxXoxUoM&w=512&h=512&itg=1&q=the%20explorer%20avatar&ved=2a" +
-                "hUKEwjI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ", 100);
+                "hUKEwjI_Nir0e3-AhVowgIHHWATDkAQMygVegUIARD4AQ", 5);
         userAvatarService.save(defaultAvatar);
         userAvatarService.save(firstAvatar);
     }
@@ -80,9 +80,9 @@ public class StartUpData implements CommandLineRunner {
     private void exampleUsers() {
         UserAvatar firstAvatar = userAvatarService.getByName("First avatar");
         Rang explorerRang = rangService.getByName("Explorer");
-        User user = new User("user", "user", "userexpl@gmail.com", Role.USER, Status.ACTIVE);
-        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN, Status.ACTIVE);
-        User user2 = new User("user2", "user2", "user2expl@gmail.com", Role.USER, Status.ACTIVE);
+        User user = new User("user", "user", "userexpl@gmail.com", Role.USER);
+        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN);
+        User user2 = new User("user2", "user2", "user2expl@gmail.com", Role.USER);
        /* admin.setNumOfXp(100);
         admin.setUserAvatar(firstAvatar);*/
         userService.save(user);
@@ -118,7 +118,8 @@ public class StartUpData implements CommandLineRunner {
         cityService.save(city1);
         cityService.save(city2);
         cityService.save(city3);
-
+        city1.setDescription("Kharkiv description");
+        cityService.save(city1);
     }
 
     private void exampleQuests() {
@@ -222,6 +223,7 @@ public class StartUpData implements CommandLineRunner {
         Quest quest8 = questService.getByName("Lviv quest");
 
         Rating rating1 = new Rating(quest1, user, 25);
+        Rating rating3 = new Rating(quest1, user, 30);
         Rating rating4 = new Rating(quest2, user, 90);
         Rating rating7 = new Rating(quest3, user, 60);
         Rating rating10 = new Rating(quest4, user, 100);
@@ -243,7 +245,7 @@ public class StartUpData implements CommandLineRunner {
 
         ratingService.save(rating1);
         //ratingService.save(rating2);
-        //ratingService.save(rating3);
+        ratingService.save(rating3);
         ratingService.save(rating4);
         //ratingService.save(rating5);
         //ratingService.save(rating6);
@@ -272,14 +274,12 @@ public class StartUpData implements CommandLineRunner {
         CompletedQuests completedQuests = new CompletedQuests(user, quest1);
         CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
         CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
-        CompletedQuests completedQuests4 = new CompletedQuests(user, quest6);
         CompletedQuests completedQuests5 = new CompletedQuests(user2, quest1);
         CompletedQuests completedQuests6 = new CompletedQuests(user2, quest5);
         CompletedQuests completedQuests7 = new CompletedQuests(user2, quest6);
         completedQuestsService.save(completedQuests);
         completedQuestsService.save(completedQuests2);
         completedQuestsService.save(completedQuests3);
-        completedQuestsService.save(completedQuests4);
         completedQuestsService.save(completedQuests5);
         completedQuestsService.save(completedQuests6);
         completedQuestsService.save(completedQuests7);
@@ -304,9 +304,9 @@ public class StartUpData implements CommandLineRunner {
 
     public void exampleQuestTasks() {
         Quest quest1 = questService.getByName("Cymska quest1");
-        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1,QuestTaskType.MYSTERY,"You need to calculate expression 1+1");
-        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1,QuestTaskType.MYSTERY,"You need to find how many mainlands on Earth");
-        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1,QuestTaskType.MYSTERY,"A surname of this politician is Kravchuk");
+        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1, QuestTaskType.MYSTERY, "You need to calculate expression 1+1");
+        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1, QuestTaskType.MYSTERY, "You need to find how many mainlands on Earth");
+        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1, QuestTaskType.MYSTERY, "A surname of this politician is Kravchuk");
         questTaskService.save(questTask1);
         questTaskService.save(questTask2);
         questTaskService.save(questTask3);

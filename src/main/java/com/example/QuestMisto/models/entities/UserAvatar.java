@@ -24,8 +24,7 @@ public class UserAvatar {
     @Column(name = "picture_url",columnDefinition = "TEXT")
     private String pictureUrl;
 
-    @Column(name = "required_xp")
-    private Integer requiredXp;
+    private int requiredNumOfCompQuests;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "userAvatar", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
@@ -33,10 +32,10 @@ public class UserAvatar {
     public UserAvatar() {
     }
 
-    public UserAvatar(String name, String pictureUrl, Integer requiredXp) {
+    public UserAvatar(String name, String pictureUrl, int requiredNumOfCompQuests) {
         this.name = name;
         this.pictureUrl = pictureUrl;
-        this.requiredXp = requiredXp;
+        this.requiredNumOfCompQuests = requiredNumOfCompQuests;
     }
 
 
@@ -64,12 +63,12 @@ public class UserAvatar {
         this.pictureUrl = pictureUrl;
     }
 
-    public Integer getRequiredXp() {
-        return requiredXp;
+    public int getRequiredNumOfCompQuests() {
+        return requiredNumOfCompQuests;
     }
 
-    public void setRequiredXp(Integer requiredXp) {
-        this.requiredXp = requiredXp;
+    public void setRequiredNumOfCompQuests(int requiredNumOfCompQuests) {
+        this.requiredNumOfCompQuests = requiredNumOfCompQuests;
     }
 
     public List<User> getUsers() {

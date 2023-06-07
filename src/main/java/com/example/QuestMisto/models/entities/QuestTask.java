@@ -32,7 +32,7 @@ public class QuestTask {
     private Quest quest;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "quest_task_type")
+    @Column(name = "quest_task_type",nullable = false)
     private QuestTaskType questTaskType;
 
     @Column(columnDefinition = "TEXT")

@@ -1,6 +1,8 @@
 package com.example.QuestMisto.repositories;
 
+import com.example.QuestMisto.models.entities.Quest;
 import com.example.QuestMisto.models.entities.Rating;
+import com.example.QuestMisto.models.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +15,5 @@ public interface RatingRepository extends JpaRepository<Rating, UUID> {
     Optional<Rating> findById(UUID id);
 
     List<Rating> findAllByRating(Integer rating);
+    Rating findByUserAndQuest(User user, Quest quest);
 }
