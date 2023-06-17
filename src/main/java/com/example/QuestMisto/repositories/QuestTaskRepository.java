@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface QuestTaskRepository extends JpaRepository<QuestTask, UUID> {
     Optional<QuestTask> findById(UUID id);
-    List<QuestTask> findAllByQuest(Quest quest);
+    List<QuestTask> findAllByQuestOrderByOrders(Quest quest);
     List<QuestTask> findAll();
+    QuestTask findByQuestAndOrders(Quest quest,int orders);
 }

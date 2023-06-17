@@ -11,42 +11,52 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "quest_task")
+//@IdClass(QuestTaskKey.class)
 public class QuestTask {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "task_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
-    private UUID Id;
-
+     @Id
+     @GeneratedValue(generator = "uuid2")
+     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+     @Column(name = "task_id", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
+     @Type(type = "uuid-char")
+     private UUID Id;
+    //@Id
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "quest", nullable = false)
+    private Quest quest;
+    //@Id
+    @Column(name = "orders")
+    private int orders;
     @Column(columnDefinition = "TEXT")
     private String taskCondition;
-
 
     @ElementCollection(targetClass = String.class)
     @CollectionTable(name = "answer", joinColumns = @JoinColumn(name = "task_id"))
     @Column(name = "answers", nullable = false)
     private List<String> answers = new ArrayList<>();
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "quest",nullable = false)
-    private Quest quest;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "quest_task_type",nullable = false)
+    @Column(name = "quest_task_type", nullable = false)
     private QuestTaskType questTaskType;
 
     @Column(columnDefinition = "TEXT")
     private String hint;
 
+
     public QuestTask() {
     }
 
-    public QuestTask(String taskCondition, List<String> answers, Quest quest,QuestTaskType questTaskType, String hint) {
+    public QuestTask(String taskCondition,
+                     List<String> answers,
+                     Quest quest,
+                     QuestTaskType questTaskType,
+                     String hint,
+                     int orders) {
         this.taskCondition = taskCondition;
         this.answers = answers;
         this.quest = quest;
-        this.questTaskType=questTaskType;
-        this.hint=hint;
+        this.questTaskType = questTaskType;
+        this.hint = hint;
+        this.orders = orders;
     }
 
     public String getTaskCondition() {
@@ -57,13 +67,6 @@ public class QuestTask {
         this.taskCondition = taskCondition;
     }
 
-    public UUID getId() {
-        return Id;
-    }
-
-    public void setId(UUID id) {
-        Id = id;
-    }
 
     public List<String> getAnswers() {
         return answers;
@@ -95,5 +98,23 @@ public class QuestTask {
 
     public void setHint(String hint) {
         this.hint = hint;
+    }
+
+    public int getOrders() {
+        return orders;
+    }
+
+    public void setOrders(int orders) {
+        this.orders = orders;
+    }
+
+    @Override
+    public String toString() {
+        return "QuestTask{" +
+                "taskCondition='" + taskCondition + '\'' +
+                ", quest=" + quest.getName() +
+                ", questTaskType=" + questTaskType.name() +
+                ", orders=" + orders +
+                '}';
     }
 }
