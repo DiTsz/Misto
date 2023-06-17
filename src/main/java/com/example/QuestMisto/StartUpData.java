@@ -54,7 +54,7 @@ public class StartUpData implements CommandLineRunner {
         exampleCompletedQuests();
         exampleFeaturedQuests();
         exampleQuestTasks();
-        //test();
+        test();
     }
 
     private void exampleAvatars() {
@@ -271,13 +271,13 @@ public class StartUpData implements CommandLineRunner {
         Quest quest5 = questService.getByName("Cymska quest5");
         Quest quest6 = questService.getByName("Cymska quest6");
 
-        CompletedQuests completedQuests = new CompletedQuests(user, quest1);
+        // CompletedQuests completedQuests = new CompletedQuests(user, quest1);
         CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
         CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
         CompletedQuests completedQuests5 = new CompletedQuests(user2, quest1);
         CompletedQuests completedQuests6 = new CompletedQuests(user2, quest5);
         CompletedQuests completedQuests7 = new CompletedQuests(user2, quest6);
-        completedQuestsService.save(completedQuests);
+        // completedQuestsService.save(completedQuests);
         completedQuestsService.save(completedQuests2);
         completedQuestsService.save(completedQuests3);
         completedQuestsService.save(completedQuests5);
@@ -304,12 +304,19 @@ public class StartUpData implements CommandLineRunner {
 
     public void exampleQuestTasks() {
         Quest quest1 = questService.getByName("Cymska quest1");
-        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1, QuestTaskType.MYSTERY, "You need to calculate expression 1+1");
-        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1, QuestTaskType.MYSTERY, "You need to find how many mainlands on Earth");
-        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1, QuestTaskType.MYSTERY, "A surname of this politician is Kravchuk");
+        Quest quest2 = questService.getByName("Cymska quest2");
+        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1, QuestTaskType.MYSTERY, "You need to calculate expression 1+1", 1);
+        QuestTask questTask1DuplicateOrder = new QuestTask("What equals 3*3", List.of("9", "nine", "Nine","NINE"), quest1, QuestTaskType.MYSTERY, "You need to calculate expression 3*3", 1);
+        QuestTask questTask4 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest2, QuestTaskType.MYSTERY, "You need to calculate expression 1+1", 1);
+        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1, QuestTaskType.MYSTERY, "You need to find how many mainlands on Earth", 2);
+        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1, QuestTaskType.MYSTERY, "A surname of this politician is Kravchuk", 3);
         questTaskService.save(questTask1);
         questTaskService.save(questTask2);
         questTaskService.save(questTask3);
+        questTaskService.save(questTask4);
+        questTaskService.save(questTask1DuplicateOrder);
+
+
 
     }
 
@@ -321,7 +328,17 @@ public class StartUpData implements CommandLineRunner {
 //        User user = userService.getByName("user");
 //        System.out.println(completedQuestsService.getAllByUser(user));
 //        System.out.println(completedQuestsService.countCompletedQuestsByUser(user));
-
+       // TEST QUEST COMPLETING
+       /* Quest quest1 = questService.getByName("Cymska quest1");
+        User user = userService.getByName("user");
+        QuestTask questTask = questTaskService.getByQuestAndOrders(quest1, 1);
+        QuestTask questTask2 = questTaskService.getNextQuestTask(questTask,"2",user);
+        QuestTask questTask3 = questTaskService.getNextQuestTask(questTask2,"Five",user);
+        QuestTask questTask4 = questTaskService.getNextQuestTask(questTask3,"Kravchuk",user);
+        System.out.println(questTask);
+        System.out.println(questTask2);
+        System.out.println(questTask3);
+        System.out.println(questTask4);*/
     }
 
 }
