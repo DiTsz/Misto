@@ -9,16 +9,10 @@
         <img th:src="@{logos/light_misto.svg}"/>
     </a>
     <div class="header-links">
-        <a th:href="@{/}">Головна</a>
+        <a class="choose-link" th:href="@{/}">Головна</a>
         <a th:href="@{/}">Про проект</a>
         <a th:href="@{/catalog}">Усі квести</a>
-        <div class="list">
-            <a class="header-list">Харків</a>
-            <div class="list-wrapper">
-                <a href="#">Київ</a>
-                <a href="#">Ужгород</a>
-            </div>
-        </div>
+        <a class="choose-city">Харків</a>
         <a class="burger-menu-btn">
             <img th:src="@{logos/light_menu.svg}">
         </a>
@@ -29,25 +23,18 @@
 </header>
 <header class="light-header" th:fragment="light-header">
     <a th:href="@{/}">
-        <img th:src="@{logos/dark_misto.svg}"/>
+        <img th:src="@{/logos/dark_misto.svg}"/>
     </a>
     <div class="header-links">
         <a th:href="@{/}">Головна</a>
         <a th:href="@{/}">Про проект</a>
         <a th:href="@{/catalog}">Усі квести</a>
-        <div class="list">
-            <a class="header-list">Харків</a>
-            <div class="list-wrapper">
-                <a href="#">Київ</a>
-                <a href="#">Ужгород</a>
-            </div>
-        </div>
+        <a class="header-list">Харків</a>
         <a class="burger-menu-btn">
-            <img th:src="@{logos/dark_menu.svg}">
+            <img th:src="@{/logos/dark_menu.svg}">
         </a>
     </div>
     <div th:replace="~{fragments/burger-menu.html :: burger-menu}">
-
     </div>
 </header>
 </body>
