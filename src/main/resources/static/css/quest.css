@@ -1,0 +1,116 @@
+*{
+	font-family: "Helvetica";
+}
+
+.content{
+    padding: 124px 270px;
+    padding-bottom: 0;
+}
+
+.quest{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    color: black;
+    background: #F7F3F0;
+    border-radius: 15px;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.2);
+}
+
+.quest img{
+    max-width: 750px;
+    max-height: 500px;
+
+    border-radius: 15px;
+}
+
+.quest-info{
+    width: 100%;
+    margin: 30px;
+}
+
+.quest-info *{
+    color: black;
+}
+
+.title{
+    font-size: 30px;
+}
+
+.description{
+    text-align: justify;
+    font-size: 20px;
+}
+
+.btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background: #FF8000;
+    border-radius: 15px;
+    color: white;
+    height: 40px;
+}
+
+.quest_characteristics{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 270px;
+    margin-top: 60px;
+
+    background: #F7F3F0;
+}
+
+.quest_characteristic{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+
+    background-color: white;
+    padding: 20px;
+    margin: 30px 0;
+    border-radius: 8px;
+}
+
+.category-img{
+    width: 65px;
+    height: 65px;
+}
+
+.quest-characteristic-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.quest-characteristic-info *{
+    margin: 0;
+    color: black;
+}
+
+.info-title{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 23px;
+
+    color: rgba(25, 16, 8, 0.3);
+}
+
+.info-value{
+    font-family: 'Bahnschrift';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 38px;
+
+    color: #302920;
+}

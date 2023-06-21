@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 @RestController
@@ -39,6 +38,14 @@ public class MainController {
         return modelAndView;
     }
 
+    @GetMapping("/catalog/test")
+    public ModelAndView getQuestPage(ModelAndView modelAndView) {
+        Quest quest = questService.getAll().stream().findFirst().get();
+        modelAndView.addObject("quest", quest);
+        modelAndView.setViewName("quest.html");
+        return modelAndView;
+    }
+
     @GetMapping("/login")
     public ModelAndView login(ModelAndView modelAndView) {
         modelAndView.setViewName("login.html");
@@ -49,8 +56,6 @@ public class MainController {
     public ModelAndView login(@RequestParam("email") String email,
                               @RequestParam("password") String password,
                               ModelAndView modelAndView) {
-        System.out.println(email);
-        System.out.println(password);
         modelAndView.setViewName("login.html");
         return modelAndView;
     }
@@ -65,12 +70,7 @@ public class MainController {
     public ModelAndView signin(@RequestParam("name") String name,
                                @RequestParam("surname") String surname,
                                @RequestParam("email") String email,
-                               @RequestParam("password") String password)
-            throws Exception {
-
-        if (new Random().nextBoolean()) {
-            throw new Exception("It`s ok");
-        }
+                               @RequestParam("password") String password) {
         userService.save(new User(name + " " + surname, password, email, Role.USER));
         return new ModelAndView("redirect:/");
     }

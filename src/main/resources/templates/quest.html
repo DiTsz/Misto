@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/quest.css}">
+    <title>Реєстрація</title>
+</head>
+<body th:object="${quest}">
+
+<div th:replace="~{fragments/header.html :: light-header}"></div>
+
+<div class="content">
+    <div class="quest">
+        <img th:src="@{/images/pic.png}">
+        <div class="quest-info">
+            <h2 class="title" th:text="*{name}"></h2>
+            <p class="description" th:text="*{description}"></p>
+            <a class="btn">Розпочати</a>
+        </div>
+    </div>
+</div>
+
+<div class="quest_characteristics">
+    <div class="quest_characteristic">
+        <img class="category-img" th:src="@{/logos/dark_category.svg}"/>
+        <div class="quest-characteristic-info">
+            <p class="info-title">Тип: </p>
+            <p class="info-value" th:text="*{questType}"></p>
+        </div>
+    </div>
+    <div class="quest_characteristic">
+        <img class="category-img" th:src="@{/logos/dark_puzzle.svg}"/>
+        <div class="quest-characteristic-info">
+            <p class="info-title">Складність: </p>
+            <p class="info-value" th:text="*{difficulty}"></p>
+        </div>
+    </div>
+    <div class="quest_characteristic">
+        <img class="category-img" th:src="@{/logos/dark_questions.svg}"/>
+        <div class="quest-characteristic-info">
+            <p class="info-title">Кількість завдань: </p>
+            <p class="info-value" th:text="*{numOfSteps}"></p>
+        </div>
+    </div>
+    <div class="quest_characteristic">
+        <img class="category-img" th:src="@{/logos/dark_distance.svg}"/>
+        <div class="quest-characteristic-info">
+            <p class="info-title">Відстань: </p>
+            <p class="info-value" th:text="|*{distance} км|"></p>
+        </div>
+    </div>
+    <div class="quest_characteristic">
+        <img class="category-img" th:src="@{/logos/dark_timer.svg}"/>
+        <div class="quest-characteristic-info">
+            <p class="info-title">Тривалість: </p>
+            <p class="info-value" th:text="|*{minDuration} - *{maxDuration} хв|"></p>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
