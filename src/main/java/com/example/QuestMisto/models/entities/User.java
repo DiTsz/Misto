@@ -55,6 +55,9 @@ public class User {
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
     private List<CompletedQuests> completedQuest = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.MERGE)
+    private List<CompletedTasks> completedTasks = new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "avatar_id",nullable = false)
     private UserAvatar userAvatar;
@@ -89,6 +92,22 @@ public class User {
         this.status=Status.ACTIVE;
         this.role=Role.USER;
 
+    }
+
+    public User(String username,
+                String name,
+                String lastName,
+                String password,
+                String email,
+                Role role) {
+        this.username = username;
+        this.name = name;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.role = role;
+        this.gemBalance=0;
+        this.status=Status.ACTIVE;
     }
 
     public UUID getId() {
