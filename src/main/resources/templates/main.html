@@ -14,7 +14,7 @@
             <h2 class="quest-name" th:text="*{name}"></h2>
             <p class="quest-description" th:text="*{description}"></p>
             <div class=quest-card-links>
-                <a class="quest-start" th:href="@{/}">Розпочати</a>
+                <a class="quest-start" th:href="@{/catalog/start/{id}(id=*{id})}">Розпочати</a>
                 <a class="more-info" th:href="@{/catalog/{id}(id=*{id})}">Детальніше&nbsp;
                     <img src="logos/light_arrow.svg"/>
                 </a>

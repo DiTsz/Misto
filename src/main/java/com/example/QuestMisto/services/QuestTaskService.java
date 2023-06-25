@@ -53,10 +53,11 @@ public class QuestTaskService implements RepositoryService<QuestTask> {
                 }
             }
             questTaskRepository.save(entity);
-        }catch (DuplicateEntityException ex){
-            System.out.println("Duplicate field 'orders' with value: "+entity.getOrders());
+        } catch (DuplicateEntityException ex) {
+            System.out.println("Duplicate field 'orders' with value: " + entity.getOrders());
         }
     }
+
     @Override
     public void delete(QuestTask entity) {
         questTaskRepository.delete(entity);
@@ -77,6 +78,10 @@ public class QuestTaskService implements RepositoryService<QuestTask> {
 
     public boolean hasNextTask(QuestTask currentTask) {
         return questTaskRepository.findByQuestAndOrders(currentTask.getQuest(), currentTask.getOrders() + 1) != null;
+    }
+
+    public QuestTask getNextTask(QuestTask currentTask) {
+        return questTaskRepository.findByQuestAndOrders(currentTask.getQuest(), currentTask.getOrders() + 1);
     }
 
     @Transactional

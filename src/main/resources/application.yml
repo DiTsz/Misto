@@ -30,7 +30,7 @@
           dialect: org.hibernate.dialect.MySQL8Dialect
       hibernate:
          ddl-auto: create
-      open-in-view: false
+      open-in-view: true
     security:
         oauth2:
           client:

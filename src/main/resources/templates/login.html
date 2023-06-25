@@ -4,18 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
     <title>Авторизація</title>
 </head>
 <body>
 <div class="content">
     <div class="input-form-container">
         <form class="input-form" method="post">
-            <h1 class="form-title">Авторизація</h1>
+            <div class="title-container">
+                <a th:href="@{/}">
+                    <img th:src="@{/logos/back-arrow.svg}">
+                </a>
+                <h1 class="form-title">Авторизація</h1>
+            </div>
             <input name="email" placeholder="E-mail" type="email" required>
             <input name="password" placeholder="Password" type="password" minlength="8" required>
             <button class="btn">Увійти</button>
             <a class="subdo" th:href="@{/signin}">Реєстрація</a>
         </form>
+        <div class="auth-box">
+            <a class="auth" th:href="@{/oauth2/authorization/google}">
+                <img th:src="@{/logos/google.svg}">
+                Увійти через Google
+            </a>
+            <a class="auth" th:href="@{/oauth2/authorization/facebook}">
+                <img th:src="@{/logos/facebook.svg}">
+                Увійти через Facebook
+            </a>
+        </div>
     </div>
 </div>
 <script th:src="@{js/script.js}"></script>

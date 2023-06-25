@@ -80,9 +80,9 @@ public class StartUpData implements CommandLineRunner {
     private void exampleUsers() {
         UserAvatar firstAvatar = userAvatarService.getByName("First avatar");
         Rang explorerRang = rangService.getByName("Explorer");
-        User user = new User("user", "user", "userexpl@gmail.com", Role.USER);
-        User admin = new User("admin", "admin", "adminexpl@gmail.com", Role.ADMIN);
-        User user2 = new User("user2", "user2", "user2expl@gmail.com", Role.USER);
+        User user = new User("user", "password", "userexpl@gmail.com", Role.USER);
+        User admin = new User("admin", "password", "adminexpl@gmail.com", Role.ADMIN);
+        User user2 = new User("user2", "password", "user2expl@gmail.com", Role.USER);
        /* admin.setNumOfXp(100);
         admin.setUserAvatar(firstAvatar);*/
         userService.save(user);
