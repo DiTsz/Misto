@@ -22,6 +22,7 @@ public class StartUpData implements CommandLineRunner {
     private final FeaturedQuestsService featuredQuestsService;
     private final QuestTaskService questTaskService;
     private final RangService rangService;
+    private final CompletedTasksService completedTasksService;
 
     public StartUpData(CityService cityService,
                        QuestService questService,
@@ -31,7 +32,8 @@ public class StartUpData implements CommandLineRunner {
                        CompletedQuestsService completedQuestsService,
                        FeaturedQuestsService featuredQuestsService,
                        QuestTaskService questTaskService,
-                       RangService rangService) {
+                       RangService rangService,
+                       CompletedTasksService completedTasksService) {
         this.cityService = cityService;
         this.questService = questService;
         this.ratingService = ratingService;
@@ -41,11 +43,12 @@ public class StartUpData implements CommandLineRunner {
         this.featuredQuestsService = featuredQuestsService;
         this.questTaskService = questTaskService;
         this.rangService = rangService;
+        this.completedTasksService = completedTasksService;
     }
 
     @Override
     public void run(String... args) {
-        exampleAvatars();
+        /*exampleAvatars();
         exampleRangs();
         exampleUsers();
         exampleCities();
@@ -54,7 +57,8 @@ public class StartUpData implements CommandLineRunner {
         exampleCompletedQuests();
         exampleFeaturedQuests();
         exampleQuestTasks();
-        test();
+        exampleCompletedTasks();
+        test();*/
     }
 
     private void exampleAvatars() {
@@ -80,9 +84,11 @@ public class StartUpData implements CommandLineRunner {
     private void exampleUsers() {
         UserAvatar firstAvatar = userAvatarService.getByName("First avatar");
         Rang explorerRang = rangService.getByName("Explorer");
+
         User user = new User("user", "password", "userexpl@gmail.com", Role.USER);
         User admin = new User("admin", "password", "adminexpl@gmail.com", Role.ADMIN);
         User user2 = new User("user2", "password", "user2expl@gmail.com", Role.USER);
+
        /* admin.setNumOfXp(100);
         admin.setUserAvatar(firstAvatar);*/
         userService.save(user);
@@ -124,29 +130,29 @@ public class StartUpData implements CommandLineRunner {
 
     private void exampleQuests() {
         final City kharkiv = cityService.getByName(CityName.KHARKIV.name());
-        final City kyiv = cityService.getByName(CityName.KYIV.name());
-        final City lviv = cityService.getByName(CityName.LVIV.name());
+        //final City kyiv = cityService.getByName(CityName.KYIV.name());
+        //final City lviv = cityService.getByName(CityName.LVIV.name());
 
-        Quest quest1 = new Quest("Cymska quest1",
-                "Quest description",
-                Difficulty.MEDIUM,
+        Quest quest1 = new Quest("Квест по Сумській. 1 рівень.",
+                "Даний квест включає в себе невелику подорож по цікавим закладам по центральній вулиці Харкова - Сумській",
+                Difficulty.EASY,
                 TypeReward.PROMOCODE,
                 QuestType.GASTRO,
                 "qeqf34645yeg",
-                "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12, 1200f, 90, 120, kharkiv);
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/%D0%A1%D1%83%D0%BC%D1%" +
+                        "81%D1%8C%D0%BA%D0%B0%2C17-22.%D0%A5%D0%B0%D1%80%D0%BA%D1%96%D0%B2.jpg/420px-%D0%A1%D1%83%" +
+                        "D0%BC%D1%81%D1%8C%D0%BA%D0%B0%2C17-22.%D0%A5%D0%B0%D1%80%D0%BA%D1%96%D0%B2.jpg",
+                4, 1200f, 90, 120, kharkiv);
 
-        Quest quest2 = new Quest("Lviv quest",
-                "Quest description",
-                Difficulty.EASY,
+        Quest quest2 = new Quest("Квест по Сумській. 2 рівень.",
+                "Даний квест включає в себе більш складну подорож по цікавим закладам по центральній вулиці Харкова - Сумській",
+                Difficulty.MEDIUM,
                 TypeReward.PROMOCODE,
                 QuestType.ENTERTAINMENT,
                 "qeqf34645yeg",
-                "https://st4.depositphotos.com/4105125/22151/i/450/" +
-                        "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12, 1200f, 90, 120, lviv);
-        Quest quest3 = new Quest("Cymska quest2",
+                "https://kharkovgo.com/wp-content/uploads/2020/03/65661820_459603831470433_1931600398221574144_o-551x368.jpg",
+                4, 1200f, 90, 120, kharkiv);
+        /*Quest quest3 = new Quest("Cymska quest2",
                 "Quest description",
                 Difficulty.MEDIUM,
                 TypeReward.PROMOCODE,
@@ -199,38 +205,38 @@ public class StartUpData implements CommandLineRunner {
                 "qeqf34645yeg",
                 "https://st4.depositphotos.com/4105125/22151/i/450/" +
                         "depositphotos_221510876-stock-photo-aerial-view-arrow-place-confluence.jpg",
-                12, 1200f, 90, 120, kharkiv);
+                12, 1200f, 90, 120, kharkiv);*/
         questService.save(quest1);
         questService.save(quest2);
-        questService.save(quest3);
+        /*questService.save(quest3);
         questService.save(quest4);
         questService.save(quest5);
         questService.save(quest6);
         questService.save(quest7);
-        questService.save(quest8);
+        questService.save(quest8);*/
 
     }
 
     public void exampleRatings() {
         User user = userService.getByName("user");
-        Quest quest1 = questService.getByName("Cymska quest1");
-        Quest quest2 = questService.getByName("Cymska quest2");
-        Quest quest3 = questService.getByName("Cymska quest3");
+        Quest quest1 = questService.getByName("Квест по Сумській. 1 рівень.");
+        Quest quest2 = questService.getByName("Квест по Сумській. 2 рівень.");
+        /*Quest quest3 = questService.getByName("Cymska quest3");
         Quest quest4 = questService.getByName("Cymska quest4");
         Quest quest5 = questService.getByName("Cymska quest5");
         Quest quest6 = questService.getByName("Cymska quest6");
         Quest quest7 = questService.getByName("Kyiv quest");
-        Quest quest8 = questService.getByName("Lviv quest");
+        Quest quest8 = questService.getByName("Lviv quest");*/
 
         Rating rating1 = new Rating(quest1, user, 25);
         Rating rating3 = new Rating(quest1, user, 30);
         Rating rating4 = new Rating(quest2, user, 90);
-        Rating rating7 = new Rating(quest3, user, 60);
+        /*Rating rating7 = new Rating(quest3, user, 60);
         Rating rating10 = new Rating(quest4, user, 100);
         Rating rating12 = new Rating(quest5, user, 8);
         Rating rating14 = new Rating(quest6, user, 75);
         Rating rating16 = new Rating(quest7, user, 88);
-        Rating rating17 = new Rating(quest8, user, 61);
+        Rating rating17 = new Rating(quest8, user, 61);*/
 
        /* Rating rating2 = new Rating(quest1, 30);
         Rating rating3 = new Rating(quest1, 36);
@@ -249,17 +255,17 @@ public class StartUpData implements CommandLineRunner {
         ratingService.save(rating4);
         //ratingService.save(rating5);
         //ratingService.save(rating6);
-        ratingService.save(rating7);
+        //ratingService.save(rating7);
         // ratingService.save(rating8);
         //ratingService.save(rating9);
-        ratingService.save(rating10);
+        //ratingService.save(rating10);
         // ratingService.save(rating11);
-        ratingService.save(rating12);
+       // ratingService.save(rating12);
         //ratingService.save(rating13);
-        ratingService.save(rating14);
+        //ratingService.save(rating14);
         //ratingService.save(rating15);
-        ratingService.save(rating16);
-        ratingService.save(rating17);
+       // ratingService.save(rating16);
+        //ratingService.save(rating17);
 
 
     }
@@ -267,55 +273,127 @@ public class StartUpData implements CommandLineRunner {
     public void exampleCompletedQuests() {
         User user = userService.getByName("user");
         User user2 = userService.getByName("user2");
-        Quest quest1 = questService.getByName("Cymska quest1");
-        Quest quest5 = questService.getByName("Cymska quest5");
-        Quest quest6 = questService.getByName("Cymska quest6");
+        Quest quest1 = questService.getByName("Квест по Сумській. 1 рівень.");
+        Quest quest5 = questService.getByName("Квест по Сумській. 2 рівень.");
+        //Quest quest6 = questService.getByName("Cymska quest6");
 
         // CompletedQuests completedQuests = new CompletedQuests(user, quest1);
         CompletedQuests completedQuests2 = new CompletedQuests(user, quest5);
-        CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
+        //CompletedQuests completedQuests3 = new CompletedQuests(user, quest6);
         CompletedQuests completedQuests5 = new CompletedQuests(user2, quest1);
         CompletedQuests completedQuests6 = new CompletedQuests(user2, quest5);
-        CompletedQuests completedQuests7 = new CompletedQuests(user2, quest6);
+        //CompletedQuests completedQuests7 = new CompletedQuests(user2, quest6);
         // completedQuestsService.save(completedQuests);
         completedQuestsService.save(completedQuests2);
-        completedQuestsService.save(completedQuests3);
+        //completedQuestsService.save(completedQuests3);
         completedQuestsService.save(completedQuests5);
         completedQuestsService.save(completedQuests6);
-        completedQuestsService.save(completedQuests7);
+        //completedQuestsService.save(completedQuests7);
 
 
     }
 
     public void exampleFeaturedQuests() {
         User user = userService.getByName("user");
-        Quest quest1 = questService.getByName("Cymska quest1");
-        Quest quest5 = questService.getByName("Cymska quest5");
-        Quest quest6 = questService.getByName("Cymska quest6");
-        Quest quest8 = questService.getByName("Lviv quest");
+        Quest quest1 = questService.getByName("Квест по Сумській. 1 рівень.");
+        Quest quest5 = questService.getByName("Квест по Сумській. 2 рівень.");
+        //Quest quest6 = questService.getByName("Cymska quest6");
+        //Quest quest8 = questService.getByName("Lviv quest");
 
         featuredQuestsService.addInFeatured(user, quest1);
         featuredQuestsService.addInFeatured(user, quest5);
-        featuredQuestsService.addInFeatured(user, quest6);
-        featuredQuestsService.addInFeatured(user, quest8);
-        featuredQuestsService.removeFromFeatured(user, quest6);
+        //featuredQuestsService.addInFeatured(user, quest6);
+        //featuredQuestsService.addInFeatured(user, quest8);
+        //featuredQuestsService.removeFromFeatured(user, quest6);
 
     }
 
     public void exampleQuestTasks() {
-        Quest quest1 = questService.getByName("Cymska quest1");
-        Quest quest2 = questService.getByName("Cymska quest2");
-        QuestTask questTask1 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest1, QuestTaskType.MYSTERY, "You need to calculate expression 1+1", 1);
-        QuestTask questTask1DuplicateOrder = new QuestTask("What equals 3*3", List.of("9", "nine", "Nine","NINE"), quest1, QuestTaskType.MYSTERY, "You need to calculate expression 3*3", 1);
-        QuestTask questTask4 = new QuestTask("What equals 1+1", List.of("2", "two", "Two"), quest2, QuestTaskType.MYSTERY, "You need to calculate expression 1+1", 1);
-        QuestTask questTask2 = new QuestTask("How many mainlands on Earth", List.of("5", "five", "Five"), quest1, QuestTaskType.MYSTERY, "You need to find how many mainlands on Earth", 2);
-        QuestTask questTask3 = new QuestTask("Who the first president of Ukraine", List.of("Leonid Kravchuk", "Kravchuk", "leonid kravchuk", "kravchuk"), quest1, QuestTaskType.MYSTERY, "A surname of this politician is Kravchuk", 3);
-        questTaskService.save(questTask1);
-        questTaskService.save(questTask2);
-        questTaskService.save(questTask3);
-        questTaskService.save(questTask4);
-        questTaskService.save(questTask1DuplicateOrder);
+        Quest quest1 = questService.getByName("Квест по Сумській. 1 рівень.");
+        Quest quest2 = questService.getByName("Квест по Сумській. 2 рівень.");
+        QuestTask likesItHot = new QuestTask("Фільм, в якому кульмінаційною піснею є ця чудова композиція відомої співачки та акторки Мерлін Монро",
+                List.of("Some like it hot", "Some likes it hot", "some like it hot", "some likes it hot",
+                        "В джазі тільки дівчата", "в джазі тільки дівчата", "Хтось любить гарячіше",
+                        "хтось любить гарячіше"), quest1, QuestTaskType.MYSTERY,
+                "4 слова, назва англійська, це назва дуже відомого фільму", 1, "https://somelikeithot.com.ua/index.html");
+        QuestTask sho = new QuestTask("Відгадкою цього питання буде третє слово у відомому вислові «Харківсього сленгу», самец е слово є назвою крутого закладу в центрі міста",
+                List.of("sho", "Sho", "Шо", "шо"), quest1, QuestTaskType.MYSTERY,
+                "Українська інтерпретація слова 'What'", 2, "https://shobar.com.ua/");
+        QuestTask khmelnitskiy = new QuestTask("18 січня ЦЬОГО року в Переяславі відбулося зібрання представників запоріжського козачества з Богданом Хмельницьким",
+                List.of("1654"),quest1,QuestTaskType.MYSTERY,"Підказка відсутня",3,"https://www.instagram.com/gorcafe1654/");
+        QuestTask kitties = new QuestTask("У давнину цим тваринам поклонялись в Єгипті, вони вважались істотою " +
+                "Божою, на них рівнялися. А цей напій, по упередженням міль'ярдів людей, володіє навичками " +
+                "енергетика, то ж наступна відгадка – це місце, назва якого скаладається з двох слів, що описані вище",
+                List.of("Киці та кава", "киці та кава", "Киці і кава", "киці і кава", "Коти і кава" ,"коти і кава"),
+                quest1,QuestTaskType.MYSTERY,"Це про котиків, …і про каву",4,"https://www.instagram.com/cats_and_coffee_kh/");
+        QuestTask shevchenko = new QuestTask("Стоїть він велично, з гордо піднятою головою, \n" +
+                "Символ волі, поезії та національної слави ця фігура. \n" +
+                "На проспекті Шевченка його знайдеш, \n" +
+                "де Харків віддзвінює свою історію.\n",List.of("Тарас Шевченко", "пам’ятник Шевченку" ,
+                "пам’ятник Тараса Шевченко" ,"пам’ятник Тарасу Шевченку", "Пам’ятник Тараса Шевченко" ),
+                quest2,QuestTaskType.MYSTERY,"це пам’ятник в центрі міста",1,
+                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmykharkov.info%2Fcatalog%2Fpamyatnik-t-" +
+                        "g-shevchenko.html&psig=AOvVaw2XYyx1z9Ce0iut5cseNTO8&ust=1684866029318000&source=images&cd=" +
+                        "vfe&ved=0CBEQjRxqFwoTCKD01JzFif8CFQAAAAAdAAAAABAI");
+        QuestTask cinema = new QuestTask("У місті Харкові є місце, де світ кіно оживає, \n" +
+                "Слова з фільму стають реальністю, як казка, що розповідає. \n" +
+                "Це місце, яке кожному знайоме, немов магічний світ, \n" +
+                "Де можна втекти від реальності, навіть, не раз на рік.\n",
+                List.of("Україна", "кінопалац Україна","Кінопалац Україна", "кінопалац «Україна»"),
+                quest2,QuestTaskType.MYSTERY,"заклад в парку Шевченка",2,
+                "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmykharkov.info%2Fcat" +
+                        "alog%2Fpamyatnik-t-g-shevchenko.html&psig=AOvVaw2XYyx1z9Ce0iut5cseNTO8&ust=1" +
+                        "684866029318000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCKD01JzFif8CFQAAAAAdAAAAABAI");
+        QuestTask khnure = new QuestTask("У Харкові є місце, де наука розцвітає, \n" +
+                "Дослідники й вчені свій розум розкривають. \n" +
+                "Лабораторії секретні, знанням вони багаті, \n" +
+                "Це місце, де інновації ніколи не затихають.\n" +
+                "Тут знаходиться центр, де розробляють техніку, \n" +
+                "Роботи і винаходи дивовижні й фантастичні. \n" +
+                "Місце, де мрії стають реальністю й надією, \n" +
+                "Це загадка Харкова, наукова магія безкінечна.\n",
+                List.of("ХНУРЕ", "хнуре","Хнуре"),quest2,QuestTaskType.MYSTERY,"учбовий заклад на Науковій",3,
+                "https://nure.ua/");
+        QuestTask misto = new QuestTask("У місті цьому таємний закуток є, \n" +
+                "Де нічні години свою магію несуть. \n" +
+                "Тут вогні розбурхано танцюють у темряві, \n" +
+                "Ритмом серця віддаються, немов музику приховують.\n" +
+                "Коли дзвонить ніч, це місце оживає, \n" +
+                "Люди забувають про сивий буденний день. \n" +
+                "Музика вдихає життя в їхні душі без краю, \n" +
+                "Тут веселі танцівники свої мрії таємні зустрічають без суджень.\n" +
+                "Так загадка моя, вперед вас веде,  \n" +
+                "Пошукайте місце, де ніч зупиняє час. \n" +
+                "Де клубні вогні грають у ритмі людей,\n" +
+                "Знаходьте відгадку, як початок пригод у нас.\n",
+                List.of("МІСТО", "Місто", "клуб МІСТО", "Клуб МІСТО", "клуб місто" ,"місто", "клуб Місто"),
+                quest2,QuestTaskType.MYSTERY,"клуб в центрі міста",4,
+                "https://instagram.com/misto_complex?igshid=MmJiY2I4NDBkZg==");
+        questTaskService.save(likesItHot);
+        questTaskService.save(sho);
+        questTaskService.save(khmelnitskiy);
+        questTaskService.save(kitties);
+        questTaskService.save(shevchenko);
+        questTaskService.save(cinema);
+        questTaskService.save(khnure);
+        questTaskService.save(misto);
 
+
+    }
+
+    public void exampleCompletedTasks() {
+        User user = userService.getByName("user");
+        Quest quest1 = questService.getByName("Квест по Сумській. 1 рівень.");
+        QuestTask questTask = questTaskService.getByQuestAndOrders(quest1, 1);
+        QuestTask questTask2 = questTaskService.getByQuestAndOrders(quest1, 2);
+        QuestTask questTask3 = questTaskService.getByQuestAndOrders(quest1, 3);
+
+        CompletedTasks completedTasks = new CompletedTasks(user, questTask);
+        CompletedTasks completedTasks2 = new CompletedTasks(user, questTask2);
+        CompletedTasks completedTasks3 = new CompletedTasks(user, questTask3);
+        completedTasksService.save(completedTasks);
+        completedTasksService.save(completedTasks2);
+        completedTasksService.save(completedTasks3);
 
 
     }
@@ -328,8 +406,9 @@ public class StartUpData implements CommandLineRunner {
 //        User user = userService.getByName("user");
 //        System.out.println(completedQuestsService.getAllByUser(user));
 //        System.out.println(completedQuestsService.countCompletedQuestsByUser(user));
-       // TEST QUEST COMPLETING
-       /* Quest quest1 = questService.getByName("Cymska quest1");
+        // TEST QUEST COMPLETING
+        /*
+        Quest quest1 = questService.getByName("Cymska quest1");
         User user = userService.getByName("user");
         QuestTask questTask = questTaskService.getByQuestAndOrders(quest1, 1);
         QuestTask questTask2 = questTaskService.getNextQuestTask(questTask,"2",user);
@@ -338,7 +417,8 @@ public class StartUpData implements CommandLineRunner {
         System.out.println(questTask);
         System.out.println(questTask2);
         System.out.println(questTask3);
-        System.out.println(questTask4);*/
+        System.out.println(questTask4);
+        System.out.println(questTaskService.isAnswerRight(questTask2,"5"));*/
     }
 
 }

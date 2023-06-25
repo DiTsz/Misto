@@ -137,7 +137,6 @@ public class UserService implements RepositoryService<User> {
             newUser.setUsername(username);
             newUser.setEmail(email);
             newUser.setRole(Role.USER);
-            newUser.setAuthProvider(AuthProvider.GOOGLE);
             newUser.setStatus(Status.ACTIVE);
             newUser.setUserAvatar(userAvatarService.getByName("default avatar"));
             newUser.setRang(rangService.getByName("Newbie"));
