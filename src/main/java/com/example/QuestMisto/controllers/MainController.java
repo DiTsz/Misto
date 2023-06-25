@@ -1,18 +1,23 @@
 package com.example.QuestMisto.controllers;
 
 import com.example.QuestMisto.models.entities.Quest;
+import com.example.QuestMisto.models.entities.QuestTask;
 import com.example.QuestMisto.models.entities.User;
 import com.example.QuestMisto.models.enums.Role;
+import com.example.QuestMisto.security.UserDetailsImpl;
 import com.example.QuestMisto.services.QuestService;
+import com.example.QuestMisto.services.QuestTaskService;
 import com.example.QuestMisto.services.UserService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.hibernate.Hibernate;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.net.Authenticator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,6 +25,8 @@ import java.util.stream.Collectors;
 public class MainController {
     private final QuestService questService;
     private final UserService userService;
+    private final QuestTaskService questTaskService;
+    private final Authenticator authenticator;
 
     @GetMapping
     public ModelAndView getMainPage(ModelAndView modelAndView) {
@@ -38,11 +45,52 @@ public class MainController {
         return modelAndView;
     }
 
-    @GetMapping("/catalog/test")
-    public ModelAndView getQuestPage(ModelAndView modelAndView) {
-        Quest quest = questService.getAll().stream().findFirst().get();
+    @GetMapping("/catalog/{id}")
+    public ModelAndView getQuestPage(@PathVariable("id") String idQuest, ModelAndView modelAndView) {
+        Quest quest = questService.getById(UUID.fromString(idQuest));
         modelAndView.addObject("quest", quest);
         modelAndView.setViewName("quest.html");
+        return modelAndView;
+    }
+
+    @GetMapping("/catalog/start/{id}")
+    public ModelAndView getStartQuestPage(@PathVariable("id") String idQuest, ModelAndView modelAndView) {
+        Quest quest = questService.getById(UUID.fromString(idQuest));
+        QuestTask questTask = questTaskService.getAllByQuest(quest).stream().findFirst().get();
+        modelAndView.addObject("questTask", questTask);
+        modelAndView.addObject("isCorrect", false);
+        modelAndView.setViewName("quest-completing.html");
+        return modelAndView;
+    }
+
+    @PostMapping("/catalog/start/{id}")
+    public ModelAndView checkTask(ModelAndView modelAndView, @PathVariable("id") String idQuest, @RequestParam("order") Integer order, @RequestParam("answer") String answer) {
+        Quest quest = questService.getById(UUID.fromString(idQuest));
+        QuestTask questTask = questTaskService.getByQuestAndOrders(quest, order);
+        boolean isCorrect = questTask.getAnswers().stream().anyMatch(e -> e.equals(answer));
+        modelAndView.addObject("questTask", questTask);
+        modelAndView.addObject("isCorrect", isCorrect);
+        modelAndView.setViewName("quest-completing.html");
+        return modelAndView;
+    }
+
+    @PostMapping("/catalog/next/{id}")
+    public ModelAndView getNextTask(ModelAndView modelAndView, @PathVariable("id") String idQuest, @RequestParam("order") Integer order) {
+        Quest quest = questService.getById(UUID.fromString(idQuest));
+        QuestTask questTask = questTaskService.getByQuestAndOrders(quest, order + 1);
+        if (questTask == null) {
+            return new ModelAndView("redirect:/");
+        }
+        modelAndView.addObject("questTask", questTask);
+        modelAndView.addObject("isCorrect", false);
+        modelAndView.setViewName("quest-completing.html");
+        return modelAndView;
+    }
+
+    @GetMapping("/account")
+    public ModelAndView getAccountPage(@AuthenticationPrincipal UserDetails currentUser, ModelAndView modelAndView) {
+        modelAndView.addObject("user", currentUser);
+        modelAndView.setViewName("account.html");
         return modelAndView;
     }
 

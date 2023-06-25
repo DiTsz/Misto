@@ -81,6 +81,10 @@ public class QuestTaskService implements RepositoryService<QuestTask> {
         return questTaskRepository.findByQuestAndOrders(currentTask.getQuest(), currentTask.getOrders() + 1) != null;
     }
 
+    public QuestTask getNextTask(QuestTask currentTask) {
+        return questTaskRepository.findByQuestAndOrders(currentTask.getQuest(), currentTask.getOrders() + 1);
+    }
+
     @Transactional
     public QuestTask getNextQuestTask(QuestTask questTask, String answer, User user) {
         QuestTask currentTask = questTaskRepository

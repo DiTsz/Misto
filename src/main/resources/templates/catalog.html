@@ -77,7 +77,7 @@
                 </div>
             </div>
             <div class=quest-card-links>
-                <a class="quest-start" href="#">Розпочати</a>
+                <a class="quest-start" th:href="@{/catalog/start/{id}(id=*{id})}">Розпочати</a>
                 <a class="more-info" th:href="@{/catalog/{id}(id=*{id})}">Детальніше&nbsp;
                     <img src="logos/dark_arrow.svg"/>
                 </a>

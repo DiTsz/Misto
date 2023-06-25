@@ -334,6 +334,7 @@ header > img{
 }
 
 .form-title{
+    width: 100%;
     color: black;
     text-align: center;
 }
@@ -514,4 +515,10 @@ header > img{
     background-color: #FF8000;
     color: var(--main-color);
     font-size: 18px;
+}
+
+.title-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

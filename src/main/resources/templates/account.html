@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/account.css}">
+    <title>Квест</title>
+</head>
+<body th:object="${quest}">
+
+<div th:replace="~{fragments/header.html :: light-header}"></div>
+
+<div class="content">
+    <div class="account-content">
+        <h2>Контактні дані</h2>
+        <div class="account">
+            <div class="account-box" th:if="${user}">
+                <div class="account-info">
+                    <img th:src="">
+                    <div class="name"></div>
+                    <div class="rank"></div>
+                </div>
+                <div class="money">
+                    <label class="reward-value"><img class="crystal" th:src="@{/logos/crystal.svg}">40</label>
+                    <a class="shop">Поповнити</a>
+                </div>
+            </div>
+            <div class="account-data">
+                <div class="data">
+                    <label>E-mail</label>
+                    <input value="Email" readonly>
+                </div>
+                <div class="data">
+                    <label>Мобільний</label>
+                    <input value="Phone" readonly>
+                </div>
+                <div class="data">
+                    <label>Дата народження</label>
+                    <input value="Date" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

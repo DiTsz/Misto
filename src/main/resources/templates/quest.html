@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/header.css}">
     <link rel="stylesheet" th:href="@{/css/quest.css}">
-    <title>Реєстрація</title>
+    <title>Квест</title>
 </head>
 <body th:object="${quest}">
 
@@ -17,7 +17,7 @@
         <div class="quest-info">
             <h2 class="title" th:text="*{name}"></h2>
             <p class="description" th:text="*{description}"></p>
-            <a class="btn">Розпочати</a>
+            <a class="btn" th:href="@{/catalog/start/{id}(id=*{id})}">Розпочати</a>
         </div>
     </div>
 </div>

@@ -29,8 +29,8 @@
           show_sql: true
           dialect: org.hibernate.dialect.MySQL8Dialect
       hibernate:
-         ddl-auto: update
-      open-in-view: false
+         ddl-auto: create
+      open-in-view: true
     security:
         oauth2:
           client:

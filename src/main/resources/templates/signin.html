@@ -10,7 +10,12 @@
 <div class="content">
     <div class="input-form-container">
         <form class="input-form" method="post">
-            <h1 class="form-title">Реєстрація</h1>
+            <div class="title-container">
+                <a th:href="@{/}">
+                    <img th:src="@{/logos/back-arrow.svg}">
+                </a>
+                <h1 class="form-title">Реєстрація</h1>
+            </div>
             <div class="name-input">
                 <input name="name" placeholder="І`мя" type="text" required>
                 <input name="surname" placeholder="Прізвище" type="text" required>

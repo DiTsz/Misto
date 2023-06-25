@@ -87,4 +87,11 @@ public class WebSecurityConfig {
                 .logoutSuccessUrl("/login");
         return http.build();
     }
+
+    @Bean
+    public java.net.Authenticator authenticator() {
+        return new java.net.Authenticator() {
+            // Override methods as needed
+        };
+    }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link rel="stylesheet" th:href="@{/css/quest_completing.css}">
+    <title>Проходження</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/header.html :: light-header}"></div>
+
+<div class="content">
+    <img th:if="${not isCorrect}" class="step-image" th:src="@{/images/quest_step.png}">
+    <img th:if="${isCorrect}" class="step-image" th:src="@{/images/quest_step_confirm.png}">
+    <div class="task" th:object="${questTask}">
+        <h2 class="title" th:text="|Завдання №*{getOrders()}|"></h2>
+        <p class="task-message" th:text="*{taskCondition}"></p>
+        <p class="reward">Нагорода: <label class="reward-value"><img class="crystal" th:src="@{/logos/crystal.svg}">
+            4</label></p>
+        <audio controls>
+            <source th:src="@{/music/music.mp3}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <div class="hint">Відкрити підказку №1</div>
+        <div class="hint">Відкрити підказку №2<label class="reward-value"><img class="crystal"
+                                                                               th:src="@{/logos/crystal.svg}">40</label>
+        </div>
+        <h4>Ваша відповідь</h4>
+        <form class="answer-form" th:action="@{/catalog/start/{id}(id=*{quest.id})}" method="post">
+            <input class="hidden" name="order" th:value="*{getOrders()}">
+            <input class="answer" name="answer" type="text" placeholder="Введіть відповідь" th:disabled="${isCorrect}">
+            <button class="check-btn" th:disabled="${isCorrect}">Підтвердити</button>
+        </form>
+        <form th:action="@{/catalog/next/{id}(id=*{quest.id})}" method="post">
+            <input class="hidden" name="order" th:value="*{getOrders()}">
+            <button class="next-btn" th:disabled="${not isCorrect}">Наступний крок</button>
+        </form>
+    </div>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
