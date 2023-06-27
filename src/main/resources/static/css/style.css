@@ -396,6 +396,7 @@ header > img{
 	height: 100vh;
 	border: 1px solid black;
 	background-image: url("../images/pic.png");
+	background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
 	flex-direction: column;
     justify-content: space-between;
 }

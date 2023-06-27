@@ -13,7 +13,7 @@
 
 <div class="content">
     <div class="quest">
-        <img th:src="@{/images/pic.png}">
+        <img th:src="*{pictureUrl}">
         <div class="quest-info">
             <h2 class="title" th:text="*{name}"></h2>
             <p class="description" th:text="*{description}"></p>

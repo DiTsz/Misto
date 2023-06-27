@@ -3,36 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/header.css}">
     <style>
         *{
             color: black;
         }
+
+
     </style>
     <title>Misto</title>
 </head>
 <body>
 <div th:replace="~{fragments/header.html :: light-header}"></div>
 <div class="city">
-    <img src="/images/Kharkiv.png"/>
-    <div class="city-info">
-        <h3 style="font-size: 36px;">Неймовірний Харків</h3>
-        <p style="font-size: 20px;">Деякий опис</p>
+    <img th:src="@{/images/Kharkiv.png}"/>
+    <div class="city-info" th:object="${city}">
+        <h3 style="font-size: 36px;" th:text="*{cityName}"></h3>
+        <p style="font-size: 20px;" th:text="*{description}"></p>
     </div>
 </div>
 <div class="categories">
-    <div class="category">
-        Категорія 1
-    </div>
-    <div class="category">
-        Категорія 2
-    </div>
-    <div class="category">
-        Категорія 3
-    </div>
-    <div class="category">
-        Категорія 4
-    </div>
+    <a class="category" th:each="category : ${categories}" th:object="${category}" th:text="*{name}"
+       th:href="@{/catalog/categories/{category}(category=*{path})}"> </a>
 </div>
 <div class="quest-container">
     <div class="catalog-quest" th:each="quest : ${quests}" th:object="${quest}">
@@ -41,35 +34,35 @@
             <p class="quest-description" style="font-size: 20px;" th:text="*{description}"></p>
             <div class="quest_characteristics column">
                 <div class="quest_characteristic">
-                    <img class="category-img" src="logos/dark_category.svg"/>
+                    <img class="category-img" th:src="@{/logos/dark_category.svg}"/>
                     <div class="dark quest-characteristic-info">
                         <p class="info-title">Тип: </p>
                         <p class="info-value" th:text="*{questType}"></p>
                     </div>
                 </div>
                 <div class="dark quest_characteristic">
-                    <img class="category-img" src="logos/dark_puzzle.svg"/>
+                    <img class="category-img" th:src="@{/logos/dark_puzzle.svg}"/>
                     <div class="quest-characteristic-info">
                         <p class="info-title">Складність: </p>
                         <p class="info-value" th:text="*{difficulty}"></p>
                     </div>
                 </div>
                 <div class="dark quest_characteristic">
-                    <img class="category-img" src="logos/dark_questions.svg"/>
+                    <img class="category-img" th:src="@{/logos/dark_questions.svg}"/>
                     <div class="quest-characteristic-info">
                         <p class="info-title">Кількість завдань: </p>
                         <p class="info-value" th:text="*{numOfSteps}"></p>
                     </div>
                 </div>
                 <div class="dark quest_characteristic">
-                    <img class="category-img" src="logos/dark_distance.svg"/>
+                    <img class="category-img" th:src="@{/logos/dark_distance.svg}"/>
                     <div class="quest-characteristic-info">
                         <p class="info-title">Відстань: </p>
                         <p class="info-value" th:text="|*{distance} км|"></p>
                     </div>
                 </div>
                 <div class="dark quest_characteristic">
-                    <img class="category-img" src="logos/dark_timer.svg"/>
+                    <img class="category-img" th:src="@{/logos/dark_timer.svg}"/>
                     <div class="quest-characteristic-info">
                         <p class="info-title">Тривалість: </p>
                         <p class="info-value" th:text="|*{minDuration} - *{maxDuration} хв|"></p>
@@ -79,11 +72,11 @@
             <div class=quest-card-links>
                 <a class="quest-start" th:href="@{/catalog/start/{id}(id=*{id})}">Розпочати</a>
                 <a class="more-info" th:href="@{/catalog/{id}(id=*{id})}">Детальніше&nbsp;
-                    <img src="logos/dark_arrow.svg"/>
+                    <img th:src="@{/logos/dark_arrow.svg}"/>
                 </a>
             </div>
         </div>
-        <img src="images/pic.png">
+        <img th:src="*{pictureUrl}">
     </div>
 </div>
 <script th:src="@{js/script.js}"></script>

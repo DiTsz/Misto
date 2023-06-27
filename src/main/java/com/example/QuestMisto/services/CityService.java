@@ -32,6 +32,10 @@ public class CityService implements RepositoryService<City> {
         return cityRepository.findByCityName(CityName.valueOf(name)).orElse(null);
     }
 
+    public City getByName(CityName name) {
+        return cityRepository.findByCityName(name).orElse(null);
+    }
+
     @Override
     public City getById(UUID id) {
         return cityRepository.findById(id).orElse(null);

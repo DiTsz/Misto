@@ -14,30 +14,39 @@
 <div class="content">
     <div class="account-content">
         <h2>Контактні дані</h2>
-        <div class="account">
-            <div class="account-box" th:if="${user}">
+        <div class="account" th:object="${user}">
+            <div class="account-box">
                 <div class="account-info">
-                    <img th:src="">
-                    <div class="name"></div>
-                    <div class="rank"></div>
+                    <img th:src="*{userAvatar.pictureUrl}">
+                    <div class="name" th:text="*{username}"></div>
                 </div>
                 <div class="money">
-                    <label class="reward-value"><img class="crystal" th:src="@{/logos/crystal.svg}">40</label>
+                    <div class="reward-value">
+                        <img class="crystal" th:src="@{/logos/crystal.svg}">
+                        <div class="revard-value" th:text="*{gemBalance}"></div>
+                    </div>
                     <a class="shop">Поповнити</a>
                 </div>
             </div>
             <div class="account-data">
                 <div class="data">
                     <label>E-mail</label>
-                    <input value="Email" readonly>
+                    <input th:value="*{email}" disabled>
                 </div>
-                <div class="data">
-                    <label>Мобільний</label>
-                    <input value="Phone" readonly>
-                </div>
-                <div class="data">
-                    <label>Дата народження</label>
-                    <input value="Date" readonly>
+            </div>
+            <a th:href="@{/logout}">Вийти</a>
+            <div class="promocodes">
+                <h2>Промокоди</h2>
+                <div class="promocode" th:each="quest : ${quests}" th:object="${quest}">
+                    <div class="promo-info">
+                        <img class="promo-image" th:src="*{quest.pictureUrl}">
+                        <div class="promo-description">
+                            <div class="promo-name" th:text="*{quest.name}"></div>
+                        </div>
+                    </div>
+                    <div class="promocode-value-container">
+                        <input class="promocode-value" th:value="${UUID.getUUID()}" disabled>
+                    </div>
                 </div>
             </div>
         </div>

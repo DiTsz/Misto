@@ -23,7 +23,7 @@ public class City {
     @Enumerated(EnumType.ORDINAL)
     private CityName cityName;
 
-    @Column (name="description")
+    @Column (name="description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "picture_url", columnDefinition = "TEXT")

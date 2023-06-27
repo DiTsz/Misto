@@ -50,3 +50,123 @@
 .account-auth{
 
 }
+
+.account-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.account-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.account-info > img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.account-info > div{
+    font-size: 24px;
+}
+
+.money{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.reward-value{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+}
+
+.shop{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 30px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
+.promocodes{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.promocode{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+
+    background-color: white;
+    width: 100%;
+    height: 130px;
+    border-radius: 15px;
+}
+
+.promo-info{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.promo-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+
+    padding: 15px;
+}
+
+.promo-image{
+    width: 300px;
+    height: 130px;
+}
+
+.promo-name{
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.date{
+    font-size: 20px;
+    color: gray;
+}
+
+.promocode-value-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 20px;
+}
+
+.promocode-value{
+    height: 40px;
+    border-radius: 5px;
+    font-size: 24px;
+    border: 2px solid #E7E3E0;
+}
+
+.copy-btn{
+    width: 40px;
+    height: 40px;
+    background-color: #E7E3E0;
+    border-radius: 5px;
+}

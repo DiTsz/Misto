@@ -1,5 +1,6 @@
 package com.example.QuestMisto.models.entities;
 
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -8,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "featured_quests")
+@EqualsAndHashCode
 public class FeaturedQuests {
     @javax.persistence.Id
     @GeneratedValue(generator = "uuid2")

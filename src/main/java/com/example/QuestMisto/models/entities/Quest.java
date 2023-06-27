@@ -3,6 +3,7 @@ package com.example.QuestMisto.models.entities;
 import com.example.QuestMisto.models.enums.Difficulty;
 import com.example.QuestMisto.models.enums.QuestType;
 import com.example.QuestMisto.models.enums.TypeReward;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "quest")
+@EqualsAndHashCode
 public class Quest {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -24,7 +26,7 @@ public class Quest {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(45)", unique = true)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "difficulty", nullable = false)

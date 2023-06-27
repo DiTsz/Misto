@@ -5,13 +5,21 @@
 </head>
 <body>
 <div id="burger-menu" class="burger-menu" th:fragment="burger-menu">
-    <div class="account-block">
+    <div class="account-block" th:if="${user == null}">
         <a th:href="@{/}">
             <img style="width: 40px;" th:src="@{/logos/account_circle.svg}">
         </a>
         <div class="auth">
             <a class="login-btn" th:href="@{/login}">Login</a>
             <a class="registration-btn" th:href="@{/signin}">Registration</a>
+        </div>
+    </div>
+    <div class="account-block" th:if="${user != null}" th:object="${user}">
+        <a th:href="@{/account}">
+            <img style="width: 40px; border-radius: 50%;" th:src="*{userAvatar.pictureUrl}">
+        </a>
+        <div class="auth">
+            <a class="account-name" th:href="@{/account}" th:text="*{username}">Login</a>
         </div>
     </div>
     <div class="burger-links">

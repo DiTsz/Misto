@@ -63,7 +63,7 @@ public class User {
     private UserAvatar userAvatar;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "rang_id",nullable = false)
+    @JoinColumn(name = "rang_id")
     private Rang rang;
     public User() {
         this.gemBalance=0;

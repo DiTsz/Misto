@@ -119,3 +119,26 @@ header > img{
     border-left: 1px solid black;
     transition: right .7s;
 }
+
+.account-block{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.auth > a{
+    font-size: 28px;
+}
+
+.link-title{
+    font-size: 24px;
+}
+
+.login-btn::after{
+    content: ' | ';
+}
+
+.account-name{
+    font-size: 20px;
+    font-weight: bold;
+}
